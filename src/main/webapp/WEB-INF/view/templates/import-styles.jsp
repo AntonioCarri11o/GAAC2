@@ -1,0 +1,302 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Antonio Carrillo
+  Date: 04/08/2022
+  Time: 07:13 p. m.
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    html,body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0 0;
+        display: flex;
+        flex-direction: row;
+    }
+
+    header {
+        width: 100%;
+        position: fixed;
+        z-index: 100;
+    }
+    .noflex{
+        display: block;
+    }
+    .card{
+        background-color: white;
+        border-radius: .5rem;
+        width: 35em;
+        padding: 0;
+        margin:2em auto 0 auto;
+    }
+    .perfili{
+        margin: 0 auto 0 0;
+        padding-left:0;
+        height: 93.9%;
+        max-width: 45%;
+        background-color: #747474;
+
+    }
+    .rcarrera{
+        margin: auto 0 auto 0;
+        height: 50%;
+    }
+    .ccarrera{
+        margin: .5em;
+        background-color: #002E60;
+        color: white;
+    }
+    .fullcontainer{
+        width: 100%;
+        min-height: 100%;
+        background-color: blue;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .lesscontainer{
+        width: 100%;
+        height: auto;
+    }
+    .midcontainer{
+        background-color: #FBFBFB;
+        border: 1px solid #747474;
+        border-radius: 1em;
+        width: 40%;
+        height: 30em;
+        margin: 10em auto 0 auto;
+    }
+    .container-md{
+        max-width: 30em;
+        background-color: #FBFBFB;
+        border:solid #C4C4C4 1px;
+        min-height: 30em;
+        height: auto;
+    }
+    .container-right{
+        background-color: #FBFBFB;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+    }
+    .container-left{
+        height: 100%;
+        background-color: red;
+    }
+    .scont{
+        width: 90%;
+        min-height: 60%;
+        border: solid 1px #C4C4C4;
+        margin: 5em auto 0 auto;
+    }
+    .tfiltro{
+        border: solid 1px #C4C4C4;
+    }
+    .theader{
+        background-color: #002E60;
+    }
+    .tadcont{
+
+    }
+    .cont{
+        width: 100%;
+        border: solid 1px;
+    }
+    .logosI{
+        max-width: 7em;
+        margin: 0 0 0 0;
+    }
+    .logosIc{
+        margin: auto 0 0 0;
+
+    }
+    .titles{
+        color: #002E60;
+        font-size: 1.5em;
+    }
+    .subtitles{
+        color: #002E60;
+        font-size: 1.2em;
+        margin: 0;
+    }
+    .btn{
+        background-color: #002E60;
+        color: white;
+        border: solid #011A42 2px;
+    }
+    .width100{
+        width: 100%;
+    }
+    .btn:hover{
+        background-color: #0F54A0;
+        border: solid #011A42 2px;
+        color: white;
+    }
+    .btn:focus{
+        background-color: #0F54A0;
+        color: white;
+    }
+    input{
+        margin: 0;
+    }
+
+    .form-control:focus{
+        box-shadow: none;
+        background-color: transparent;
+    }
+    a{
+        text-decoration: none;
+        margin: 0;
+        line-height: 2.5em;
+        color:#002E60;
+    }
+    .sidebar {
+        color: #fff;
+    }
+    .cardcuat{
+        background-color: #C4C4C4;
+        width: 100%;
+        margin: 0 auto 0 auto;
+        height: 100%;
+        border: 1px solid;
+        border-radius: 1em;
+    }
+    .cardcuatheader{
+        background-color: #011A42;
+        width: 100%;
+        height: auto;
+        color: white;
+        margin: 0;
+        text-align: center;
+        border-radius: 1em 1em 0 0;
+    }
+    .colorstatus{
+        width: 1em;
+        height: 1em;
+        border: solid 1px;
+        border-radius: 100%;
+        background-color: red;
+        margin: .2em .5em 0 auto;
+    }
+    .cardcuatbody{
+
+    }
+    .btnexpand{
+        width: 80%;
+        height:2em;
+        padding: 0;
+        border: 1px solid #C4C4C4;
+        border-radius: 0;
+        margin: 0;
+    }
+    .sidebar {
+        position: -webkit-sticky;
+        position: fixed;
+        bottom: 3em;
+        right: 4em;
+    }
+    .datos{
+        margin-top: 1em;
+    }
+    .logosR{
+        max-width: 10em;
+        margin: 0;
+    }
+    .title{
+        margin-top: 1em;
+        margin-left: 1em;
+    }
+    .cltittle{
+        margin: 0 0 0 0;
+    }
+    .clbody{
+        margin-left: 1em;
+        max-width: 30em;
+        margin: 0 0 0 0;
+    }
+    .crhead{
+        margin: 1em 1em auto 1em;
+    }
+    .height100{
+        min-height: 100%;
+    }
+    .crbody{
+        margin: 0 1em 1em 1em;
+
+        height: 100%;
+    }
+    .crfoot{
+        height: 10%;
+        margin:auto 1em 0 1em;
+    }
+    .datos{
+        margin: 2em 0 auto 0;
+    }
+    .cbody{
+        width: 100%;
+        margin: 2em 0 0 0 ;
+        padding: 0 1em;
+    }
+    .cfoot{
+        width: 100%;
+        margin: auto 0 0 0;
+    }
+    .tdcr{
+        height: 100%;
+    }
+    .tdc{
+        width: 50%;
+        height: 50%;
+    }
+
+    nav{
+        background-color: #002E60;
+        height: auto;
+
+    }
+    .navbar{
+        padding: 0;
+        position: sticky;
+    }
+    .fa-bars{
+        color: white;
+
+    }
+    .fa-bars:hover{
+        color: white;
+    }
+    .fa-bars:focus{
+        color: white;
+    }
+    .btnmenu{
+        border: solid 1px white;
+        border-radius: 1em;
+        padding: 0;
+        width: 3.5em;
+        height: 3em;
+        margin: auto 0 auto 1em;
+    }
+    .btnmenu:focus{
+        background-color: #009475;
+    }
+    .dropdown-item{
+        background-color: #009475;
+        border:solid 1px#075948;
+        color: white;
+    }
+    .dropdown-menu{
+        padding:0;
+        background-color: #009475;
+    }
+    .bottombtn{
+        width: 100%;
+        margin: auto 0 0 0;
+    }
+.btnmod:hover:after{
+    content: "Modificar";
+    transition: color 0.1s linear 0.1s;
+}
+</style>
