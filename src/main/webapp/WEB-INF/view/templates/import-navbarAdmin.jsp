@@ -16,13 +16,13 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="list-student" class="dropdown-item"  style="border-radius: .5em .5em 0 0;">Estudiantes</a></li>
-                        <li><a href="Cuatrimestre" class="dropdown-item">Informes cuatrimsestrales</a></li>
+                        <li><a href="list-cuatrimestre" class="dropdown-item">Informes cuatrimsestrales</a></li>
                         <!--<li><a class="dropdown-item" href="#">Materias</a></li>-->
                         <li><a href="logout" class="dropdown-item" href="logout" style="border-radius: 0 0 .5em .5em;"><i class="fa-solid fa-power-off fa-sm"></i> Cerrar sesión </a>
                     </ul>
                 </div>
                 <div class="col" style="text-align:center;color: white; margin: auto 0 auto 0; font-size: 2em;">
-                    Cuatrimestres por año
+                    Administrador
                 </div>
                 <div class="col" style="text-align: right; padding: 0 0 0 0;">
                     <img src="/img/Logo-utez.png" style="max-width: 7em;" alt="">

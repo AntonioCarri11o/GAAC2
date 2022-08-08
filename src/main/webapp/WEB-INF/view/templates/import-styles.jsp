@@ -299,4 +299,33 @@
     content: "Modificar";
     transition: color 0.1s linear 0.1s;
 }
+
+#all:checked ~ #tablas #dos,#all:checked ~ #tablas #tres{
+    display: none;
+}
+#act:checked ~ #tablas #uno, #act:checked ~ #tablas #tres{
+    display: none;
+}
+#ina:checked ~ #tablas #uno, #ina:checked ~ #tablas #dos{
+    display: none;
+}
+.new{
+    width: 3em;
+    height: 3em;
+    position: fixed;
+    padding: 0;
+    z-index: 100;
+    border-radius: 1em;
+    color: white;
+    bottom: 3em;
+    right: 3em;
+    display: flex;
+}
+
+.fa-plus{
+    margin: auto auto auto auto;
+}
+.fa-plus:hover{
+    color: white;
+}
 </style>

@@ -24,6 +24,7 @@
             </div>
             <a href="AdminInicioSesion" class="btn btn-primary">Admin</a>
             <a href="login" class="btn btn-primary">Iniciar sesión</a>
+            <a href="pruebas">Pruebas</a>
 
         </div>
     </div>

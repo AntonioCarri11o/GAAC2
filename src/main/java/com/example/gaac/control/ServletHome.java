@@ -19,7 +19,9 @@ urlPatterns = {
         "/AsesoriasD",//get
         "/Cuatrimestre",//get
         "/Materias",//get
-        "/PerfilDocente"//get
+        "/PerfilDocente",
+        "/newCuatrimestre",//get
+        "/pruebas"
 
 }
 )
@@ -54,9 +56,11 @@ public class ServletHome extends HttpServlet {
             case "/AsesoriasD":
                 request.getRequestDispatcher("WEB-INF/view/AsesoriasD.jsp").forward(request, response);
                 break;
-            case "/Cuatrimestre":
-                request.getRequestDispatcher("WEB-INF/view/Cuatrimestre.jsp").forward(request,response);
-            default:
+            case "/newCuatrimestre":
+                request.getRequestDispatcher("WEB-INF/view/saveCuatrimestre.jsp").forward(request, response);
+                break;
+            case "/pruebas":
+                request.getRequestDispatcher("WEB-INF/view/pruebas.jsp").forward(request,response);
                 break;
         }
     }

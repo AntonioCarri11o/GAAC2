@@ -71,7 +71,7 @@ public class Servletlogin extends HttpServlet {
                     if(login.getCorreo()!=null){
                         HttpSession session=request.getSession(true);
                         session.setAttribute("name",login.getCorreo());
-                        request.getRequestDispatcher("/WEB-INF/view/Cuatrimestre.jsp").forward(request, response);
+                        response.sendRedirect("list-cuatrimestre");
                     }else{
                         response.sendRedirect("AdminInicioSesion?message=error");
                     }

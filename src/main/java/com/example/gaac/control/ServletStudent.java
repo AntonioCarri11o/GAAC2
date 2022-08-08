@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ServletStudent",
@@ -13,6 +14,7 @@ import java.util.List;
                 "/save-student",//post
                 "/get-student",//get
                 "/status-student"//get
+
         }
 
 )
@@ -25,6 +27,18 @@ public class ServletStudent extends HttpServlet {
             case "/list-student":
                 System.out.println("Entró a liststudent");
                 List<BeanStudent> listStudents= servicesStudent.listStudents();
+                List<BeanStudent> disabledStudents= new ArrayList<>();
+                List<BeanStudent> activeStudents = new ArrayList<>();
+                for (int i=0; i<listStudents.size(); i++){
+                    BeanStudent student=listStudents.get(i);
+                    if(student.getEstado().equals("Activo")){
+                        activeStudents.add(student);
+                    }else{
+                        disabledStudents.add(student);
+                    }
+                }
+                request.setAttribute("whiteList",activeStudents);
+                request.setAttribute("dSList", disabledStudents);
                 request.setAttribute("list",listStudents);
                 request.getRequestDispatcher("/WEB-INF/view/Estudiantes-lista.jsp").forward(request,response);
                 break;

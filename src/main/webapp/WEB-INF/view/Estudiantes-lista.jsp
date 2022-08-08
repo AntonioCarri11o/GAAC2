@@ -13,67 +13,80 @@
   <link href="styles.css" type="text/css" rel="stylesheet">
 </head>
 <body style="display: block;">
-<c:import url="templates/import-navbarAdmin.jsp"/>
-<c:import url="templates/import-styles.jsp"/>
+<jsp:include page="templates/import-styles.jsp"/>
+<jsp:include page="templates/import-navbarAdmin.jsp"/>
+
 <div class="lesscontainer" style="display: flex;">
   <div class="container-fluid scont">
     <form action="list-student" method="get">
-      <fieldset class="row tfiltro">
-        <div class="col" ><p class="subtitles">Filtrar</p></div>
-        <div class="col">
+
           <label for="all" class="subtitles">Todos</label>
           <input type="radio" id="all" name="filtrar" value="all"checked>
-        </div>
-        <div class="col">
           <label for="act" class="subtitles">Activos</label>
           <input type="radio" id="act" name="filtrar" value="Activo">
-        </div>
-        <div class="col">
           <label for="ina" class="subtitles">Inactivos</label>
           <input type="radio" id="ina" name="filtrar" value="Inactivo">
-        </div>
-        <div class="col-6" style="display: flex;">
-
-        </div>
-      </fieldset>
-    </form>
-    <div class="row theader" style="background-color:#033062;">
-      <div class="col"><p class="subtitles" style="color:white;">Matricula</p></div>
-      <div class="col-4"><p class="subtitles" style="color:white;">Nombre</p></div>
-      <div class="col"><p class="subtitles" style="color:white;">Carrera</p></div>
-      <div class="col"><p class="subtitles" style="color:white;"></div>
-      <div class="col">
+      <div class="row theader" style="background-color:#033062;">
+        <div class="col"><p class="subtitles" style="color:white;">Matricula</p></div>
+        <div class="col-4"><p class="subtitles" style="color:white;">Nombre</p></div>
+        <div class="col"><p class="subtitles" style="color:white;">Carrera</p></div>
+        <div class="col"><p class="subtitles" style="color:white;"></div>
+        <div class="col"></div>
       </div>
-    </div>
-    <c:if test = "${param['result-update-status']!=null}">
-      <c:if test="${param['result-update-status']=='ok'}">
-        <div class="alert alert-success" role="alert">
-          Estado Actualizado
-        </div>
-      </c:if>
-      <c:if test="${param['result-update-status']=='error'}">
-        <div class="alert alert-danger" role="alert">
-          Ouuppss!! Ocurrio un Error :(
-        </div>
-      </c:if>
-    </c:if>
-            <c:forEach items="${list}" var="student">
-              <div class="row">
-                <div class="col"><c:out value="${student.matricula}"/></div>
-                <div class="col-4"><c:out value="${student.name}"/></div>
-                <div class="col"><c:out value="${student.carrera}"/></div>
-                <input type="text" hidden>
+      <div id="tablas">
+        <div id="uno">
+          <c:forEach items="${list}" var="student">
+            <div class="row">
+              <div class="col"><c:out value="${student.matricula}"/></div>
+              <div class="col-4"><c:out value="${student.name}"/></div>
+              <div class="col"><c:out value="${student.carrera}"/></div>
+              <div class="col"></div>
+              <div class="col">
+                <a href="get-student?matricula=${student.matricula}" class="btn btnmod" style="width:100%;">
+                  <c:out value="${student.estado}"/>
 
-                <div class="col"></div>
-                <div class="col">
-                  <input hidden name="matricula" value="${student.matricula}">
-                    <a href="get-student?matricula=${student.matricula}" class="btn btnmod" style="width:100%;">
-                      <c:out value="${student.estado}"/>
-                    </a>
-                </div>
+                </a>
               </div>
-            </c:forEach>
+            </div>
+          </c:forEach>
+        </div>
+        <div id="dos">
+          <c:forEach items="${whiteList}" var="aStudent">
+          <div class="row">
+            <div class="col"> <c:out value="${aStudent.matricula}"/></div>
+            <div class="col-4"> <c:out value="${aStudent.name}"/></div>
+            <div class="col"> <c:out value="${aStudent.carrera}"/></div>
+            <div class="col"></div>
+            <div class="col">
+              <a href="get-student?matricula=${aStudent.matricula}" class="btn btnmod" style="width:100%;">
+                <c:out value="${aStudent.estado}"/>
+              </a>
+            </div>
+          </div>
+          </c:forEach>
+        </div>
+        <div id="tres">
+          <c:forEach items="${dSList}" var="dstudent">
+            <div class="row">
+              <div class="col"><c:out value="${dstudent.matricula}"/></div>
+              <div class="col-4"><c:out value="${dstudent.name}"/></div>
+              <div class="col"><c:out value="${dstudent.carrera}"/></div>
+              <div class="col"></div>
+              <div class="col">
+
+                <a href="get-student?matricula=${dstudent.matricula}" class="btn btnmod" style="width:100%;">
+                  <c:out value="${dstudent.estado}"/>
+                </a>
+              </div>
+            </div>
+          </c:forEach>
+        </div>
+      </div>
+
+    </form>
+
   </div>
+
 </div>
 </div>
 
