@@ -21,6 +21,7 @@ urlPatterns = {
         "/Materias",//get
         "/PerfilDocente",
         "/newCuatrimestre",//get
+        "/carreras",//get
         "/pruebas"
 
 }
@@ -61,6 +62,9 @@ public class ServletHome extends HttpServlet {
                 break;
             case "/pruebas":
                 request.getRequestDispatcher("WEB-INF/view/pruebas.jsp").forward(request,response);
+                break;
+            case "/carreras":
+                request.getRequestDispatcher("WEB-INF/view/Carreras.jsp").forward(request,response);
                 break;
         }
     }

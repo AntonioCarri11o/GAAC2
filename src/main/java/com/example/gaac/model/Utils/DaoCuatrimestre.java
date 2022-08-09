@@ -52,4 +52,18 @@ public class DaoCuatrimestre {
 
         return result;
     }
+    public boolean statusCuatrimestre(String id, String estado){
+        boolean result=false;
+        try(
+                Connection connection= MySQLConnection.getConnection();
+                PreparedStatement pstm= connection.prepareStatement("update cuatrimestre set Estado=? where ID=?;")
+                ){
+            pstm.setString(1,estado);
+            pstm.setString(2,id);
+            result=pstm.executeUpdate()==1;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

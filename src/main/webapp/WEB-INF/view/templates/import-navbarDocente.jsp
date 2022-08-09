@@ -17,7 +17,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="PerfilDocente" class="dropdown-item" href="#" style="border-radius: .5em .5em 0 0;">Mi perfil</a></li>
                         <li><a href="AsesoriasD" class="dropdown-item" href="#">Asesorías</a></li>
-                        <li><a href="Materias" class="dropdown-item" href="#">Materias</a></li>
+                        <li><a href="listMateriasD" class="dropdown-item" href="#">Materias</a></li>
                         <li><a class="dropdown-item" href="logout" style="border-radius: 0 0 .5em .5em;"><i class="fa-solid fa-power-off fa-sm"></i> Cerrar sesión </a>
                     </ul>
                 </div>

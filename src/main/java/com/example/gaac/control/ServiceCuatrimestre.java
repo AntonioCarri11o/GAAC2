@@ -17,4 +17,9 @@ public class ServiceCuatrimestre {
         boolean result=daoCuatrimestre.newCuatrimestre(cuatrimestre);
         return result;
     }
+    public boolean statusCuatrimestre(String id, String estado){
+        DaoCuatrimestre daoCuatrimestre= new DaoCuatrimestre();
+        boolean result= daoCuatrimestre.statusCuatrimestre(id,estado);
+        return result;
+    }
 }

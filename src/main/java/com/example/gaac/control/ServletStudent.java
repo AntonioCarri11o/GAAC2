@@ -58,8 +58,8 @@ public class ServletStudent extends HttpServlet {
                 String matr=request.getParameter("matricula")!=null?request.getParameter("matricula"):"";
                 String status=request.getParameter("status")!=null?request.getParameter("status"):"";
                 try{
-                    ServicesStudent servicesStudent1 = new ServicesStudent();
-                    boolean result =servicesStudent1.statusStudent(matr,status);
+                    //ServicesStudent servicesStudent1 = new ServicesStudent();
+                    boolean result =servicesStudent.statusStudent(matr,status);
                     response.sendRedirect("list-student?result-update-status"+(result?"ok":"error"));
                 }catch (Exception e){
                     e.printStackTrace();

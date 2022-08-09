@@ -32,6 +32,14 @@
                         <p class="subtitles">Mujeres Atendidas: <c:out value="${cuatrimestre.mujeres}"/></p>
                         <p class="subtitles">Hombres Atendidos: <c:out value="${cuatrimestre.hombres}"/></p>
                         <p class="subtitles">Otros Atendidos: <c:out value="${cuatrimestre.otros}"/></p>
+                        <form action="statusCuatrimestre" method="get">
+                            <input hidden name="status" value="${cuatrimestre.estado}">
+                            <input hidden name="id" value="${cuatrimestre.idC}">
+                            <button class="btn btn-primary" type="submit">
+                                <c:out value="${cuatrimestre.estado}"/>
+                            </button>
+                        </form>
+
                     </div>
                 </c:forEach>
             </div>

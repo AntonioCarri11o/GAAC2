@@ -10,6 +10,7 @@
     
 </head>
 <body>
+<jsp:include page="templates/import-styles.jsp"/>
     <div class="fullcontainer">
 
         <div class="container-fluid height100">
@@ -17,28 +18,28 @@
             <div class="row row-cols-12 justify-content-end height100">
                 <div class="col-md-8 col-sm-2 height100"></div>
 
-                <form action="" class="col-md-4 col-sm-6 container-right height100">
+                <form action="newDocente"method="post" class="col-md-4 col-sm-6 container-right height100">
                         <div class="row crhead">
                             <div class="col"><p class="subtitles">Registro docente</p></div>
                             <div class="col" style="text-align:right;"><a href="#">Iniciar sesión</a></div>
                         </div>
                         <div class="row crbody">
                             <p class="subtitles">Nombre</p>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="name">
                             <p class="subtitles">Apellido paterno</p>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="ap1">
                             <p class="subtitles">Apellido materno</p>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="ap2">
                             <p class="subtitles">Correo</p>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="email">
                             <p class="subtitles">Contraseña</p>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="password">
                             <p class="subtitles">Comfirmar contraseña</p>
                             <input type="text" class="form-control">
                         </div>
                         <div class="row crfoot">
                             <div class="col"><button class="btn" type="submit">Registrar</button></div>
-                            <div class="col" style="text-align:right;"><button class="btn">Cancelar</button></div>
+                            <div class="col" style="text-align:right;"><a href="index" class="btn btn-primary">Cancelar</a> </div>
                         </div>
                     </div>
                 </form>
