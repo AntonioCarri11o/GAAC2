@@ -27,7 +27,7 @@ Create table Materia(
 /*--Tabla cuatrimestre */
 Create table Cuatrimestre(
     ID VARCHAR(6),
-    Periodo varchar (50) UNIQUE,
+    Periodo varchar (50),
     Estado VARCHAR(8) default 'Inactivo',
     Mujeres_atendidas int DEFAULT 0,
     Hombres_atendidos int default 0,
@@ -45,7 +45,7 @@ create table docente(
     Apellido2 VARCHAR(20),
     Contrasena VARCHAR (10),
     codigo varchar(20),
-    ID_cuatrimestre VARCHAR(6),
+    ID_cuatrimestre VARCHAR(11),
     CONSTRAINT pk_docente
     primary key (Correo),
     CONSTRAINT fk_Docente_Cuatrimestre
@@ -76,7 +76,7 @@ create table Sesion_asesoria(
     estado VARCHAR(11) default 'Solicitada',
     Correo_Docente varchar(50),
     Correo_Estudiante varchar(22),
-    ID_cuatrimestre varchar(6),
+    ID_cuatrimestre varchar(11),
     Id_materia VARCHAR(10),
     constraint pk_Sesion
     PRIMARY key (id),
@@ -89,7 +89,7 @@ create table Sesion_asesoria(
     constraint fk_Sesion_Materia
     foreign key (ID_Materia) REFERENCES Materia(id)    
 );
-
+select* from estudiante;
 /*----------Tablas de intersección----------*/
 /*Docente_has_materia*/
 create table Docente_has_materia(
@@ -99,15 +99,6 @@ create table Docente_has_materia(
     foreign key (Correo_Docente) REFERENCES Docente(Correo),
     constraint fk_dmMateria
     foreign key (Id_materia) REFERENCES materia (id)
-);
-/*Cuatrimestre_materia*/
-create table Cuatrimestre_Materia(
-    ID_cuatrimestre varchar (11),
-    ID_Materia varchar (10),
-    constraint fk_mcCuatrimestre 
-    foreign key (ID_cuatrimestre) REFERENCES Cuatrimestre(id),
-    constraint fk_mcMateria
-    foreign key (ID_cuatrimestre) REFERENCES Materia(ID)
 );
 /*Carrera_materia*/
 create table Materia_carrera(
