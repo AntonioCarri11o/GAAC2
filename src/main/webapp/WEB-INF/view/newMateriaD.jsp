@@ -17,6 +17,7 @@
   <div class="container-fluid scont">
     <div class="jusify-content-center">
       <form action="save-materia" method="get">
+        <p class="subtitles"><c:out value="${carrera}"/></p>
         <label class="subtitles" for="materia">Elegir materia</label>
         <p></p>
         <select class="form-select" name="materia" id="materia" required>

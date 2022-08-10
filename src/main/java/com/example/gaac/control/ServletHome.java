@@ -29,6 +29,7 @@ urlPatterns = {
 public class ServletHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session= request.getSession();
         String option = request.getServletPath();
         switch (option){
             case "/login":
@@ -50,6 +51,7 @@ public class ServletHome extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/view/PerfilStudent.jsp").forward(request, response);
                 break;
             case "/PerfilDocente":
+
                 request.getRequestDispatcher("WEB-INF/view/PerfilDocente.jsp").forward(request,response);
                 break;
             case "/AsesoriasE":

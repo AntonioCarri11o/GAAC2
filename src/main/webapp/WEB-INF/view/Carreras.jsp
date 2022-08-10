@@ -20,11 +20,11 @@
     <div class="midcontainer container-fluid">
         <div class="row rcarrera">
             <form action="newMateriaD" method="get">
-                <input hidden name="carrera" value="dsm">
+                <input hidden name="idcarrera" value="dsm">
                 <button type="submit" class="ccarrera col btn"><p style="margin: auto;">Desarrollo de software multiplataforma</p></button>
             </form>
             <form action="newMateriaD" method="get">
-                <input hidden name="carrera" value="dd">
+                <input hidden name="idcarrera" value="dd">
                 <button type="submit" class="ccarrera col btn"><p style="margin: auto;">Diseño digital</p></button>
             </form>
 
@@ -33,13 +33,13 @@
         <div class="row rcarrera">
 
             <form action="newMateriaD" method="get">
-                <input hidden name="carrera" value="dmi">
+                <input hidden name="idcarrera" value="dmi">
                 <button type="submit" class="ccarrera col btn"><p style="margin: auto;">Diseño y moda industrial</p></button>
             </form>
 
             <form action="newMateriaD" method="get">
-                <input hidden name="carrera" value="ird">
-                <button type="submit" class="ccarrera col btn"><p style="margin: auto;">Infraestrucutra de redes digitales</p></button>
+                <input hidden name="idcarrera" value="ird">
+                <button type="submit" class="ccarrera col btn"><p style="margin: auto;">Infraestructura de redes digitales</p></button>
             </form>
 
 

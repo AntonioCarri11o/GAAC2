@@ -17,7 +17,7 @@
 <jsp:include page="templates/import-navbarDocente.jsp"/>
       <div class="lesscontainer">
         <div class="container-fluid perfili">
-            <form action="update" method="post" style="margin: 3em 2em 2em 0;;">
+            <form action="perfilDocenteUpdate" method="post" style="margin: 3em 2em 2em 0;;">
                 <div style="margin-left: 2em;">
                     <div class="row">
                         <img src="/img/imagen.jpg" style="width:8em;">
@@ -29,32 +29,33 @@
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Nombre</p>
                                 </div>
                             </div>
-                            <input type="text" class="col">
+                            <input type="text" class="col" name="name" value="${name}">
                         </div>
                         <div class="row" style="border: solid 1px;">
                             <div class="col-4" style="display: flex;">
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Apellido Paterno</p>
                                 </div>
                             </div>
-                            <input type="text" class="col">
+                            <input type="text" class="col" name="ap1" value="${ap1}">
                         </div>
                         <div class="row" style="border: solid 1px;">
                             <div class="col-4" style="display: flex;">
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Apellido Materno</p>
                                 </div>
                             </div>
-                            <input type="text" class="col">
+                            <input type="text" class="col" name="ap2" value="${ap2}">
                         </div>
                         <div class="row" style="border: solid 1px;">
-                            <div class="col" style="display: block;">
+                            <div class="col-4" style="display: flex;">
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Correo</p>
                                 </div>
                             </div>
+                            <input type="text" class="col" disabled value="${email}">
                         </div>
                     </div>
 
                     <div class="row" style="margin:1em 0 0 0;">
-                        <div class="col-10"><button class="btn" type="submit">Modificar Datos</button></div>
+                        <div class="col-10"><button class="btn btn-primary" type="submit">Modificar Datos</button></div>
                     </div>
                 </div>
 

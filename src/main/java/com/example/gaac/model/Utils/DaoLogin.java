@@ -36,6 +36,9 @@ public class DaoLogin {
                 ResultSet rs= pstm.executeQuery();
                 while (rs.next()){
                     beanlogin.setCorreo(rs.getString("Correo"));
+                    beanlogin.setName(rs.getString("Nombre"));
+                    beanlogin.setAp1(rs.getString("Apellido1"));
+                    beanlogin.setAp2(rs.getString("Apellido2"));
                 }
             }catch (Exception e){
                 e.printStackTrace();

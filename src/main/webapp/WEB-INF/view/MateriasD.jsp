@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-3">
                     <c:out value="${materia.name}"/>
-                    <form>
+                    <form action="status-materia" method="get">
                         <input hidden name="id" value="${materia.id}">
                         <input hidden name="status" value="${materia.estado}">
                         <button class="btn btn-primary" type="submit">

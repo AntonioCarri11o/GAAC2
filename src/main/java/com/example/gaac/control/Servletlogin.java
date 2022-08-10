@@ -60,7 +60,10 @@ public class Servletlogin extends HttpServlet {
                 if (role==2){
                     if(login.getCorreo()!=null){
                         HttpSession session=request.getSession(true);
-                        session.setAttribute("name",login.getCorreo());
+                        session.setAttribute("email",login.getCorreo());
+                        session.setAttribute("name",login.getName());
+                        session.setAttribute("ap1",login.getAp1());
+                        session.setAttribute("ap2",login.getAp2());
                         response.sendRedirect("AsesoriasD");
                         //request.getRequestDispatcher("/WEB-INF/view/AsesoriasD.jsp").forward(request,response);
                     }else{

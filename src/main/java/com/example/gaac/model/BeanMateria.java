@@ -4,7 +4,7 @@ public class BeanMateria {
     private String id;
     private String name;
     private String estado;
-
+    private String carrera;
 
     public BeanMateria() {
 
@@ -32,5 +32,11 @@ public class BeanMateria {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public String getCarrera(){
+        return carrera;
+    }
+    public void setCarrera(String carrera){
+        this.carrera=carrera;
     }
 }
