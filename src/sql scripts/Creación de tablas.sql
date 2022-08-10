@@ -34,9 +34,7 @@ Create table Cuatrimestre(
     Otros_atendidos int default 0,
     year int,
     constraint pk_Cuatrimestre
-    primary KEY (id),
-    constraint fk_cuatrimestre_year
-    foreign key (year) references year(ano)
+    primary KEY (id)
 );
 
 /*Tabla docente*/
@@ -46,6 +44,7 @@ create table docente(
     Apellido1 VARCHAR (20),
     Apellido2 VARCHAR(20),
     Contrasena VARCHAR (10),
+    codigo varchar(20),
     ID_cuatrimestre VARCHAR(6),
     CONSTRAINT pk_docente
     primary key (Correo),
@@ -63,6 +62,7 @@ create table estudiante(
     ID_cuatrimestre varchar(6),
     estado VARCHAR(8) default 'Activo',
     contrasena varchar(10),
+    codigo varchar(20),
     constraint pk_Estudiante
     primary key (Correo),
     constraint fk_Estudiante_Carrera
@@ -102,7 +102,7 @@ create table Docente_has_materia(
 );
 /*Cuatrimestre_materia*/
 create table Cuatrimestre_Materia(
-    ID_cuatrimestre varchar (6),
+    ID_cuatrimestre varchar (11),
     ID_Materia varchar (10),
     constraint fk_mcCuatrimestre 
     foreign key (ID_cuatrimestre) REFERENCES Cuatrimestre(id),
@@ -118,6 +118,4 @@ create table Materia_carrera(
     constraint fk_cmMateria 
     foreign key (Id_materia) REFERENCES Materia(id)
 );
-use integradora;
-delete from estudiante;
 select * from estudiante;

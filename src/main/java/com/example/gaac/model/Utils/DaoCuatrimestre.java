@@ -22,7 +22,7 @@ public class DaoCuatrimestre {
                 cuatrimestre.setIdC(rs.getString("ID"));
                 cuatrimestre.setPeriodo(rs.getString("Periodo"));
                 cuatrimestre.setEstado(rs.getString("Estado"));
-                cuatrimestre.setYear(rs.getInt("yeear"));
+                cuatrimestre.setYear(rs.getInt("year"));
                 cuatrimestre.setMujeres(rs.getInt("Mujeres_atendidas"));
                 cuatrimestre.setHombres(rs.getInt("Hombres_atendidos"));
                 cuatrimestre.setOtros(rs.getInt("Otros_atendidos"));
@@ -41,7 +41,7 @@ public class DaoCuatrimestre {
         boolean result=false;
         try(
                 Connection connection=MySQLConnection.getConnection();
-                PreparedStatement pstm = connection.prepareStatement("insert into cuatrimestre (Periodo, yeear) values (?,?);");
+                PreparedStatement pstm = connection.prepareStatement("insert into cuatrimestre (Periodo, year) values (?,?);");
                 ){
             pstm.setString(1,cuatrimestre.getPeriodo());
             pstm.setInt(2,cuatrimestre.getYear());

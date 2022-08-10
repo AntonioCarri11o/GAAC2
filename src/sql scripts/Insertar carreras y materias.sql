@@ -1,7 +1,8 @@
+/*Carreras*/
 insert into carrera values
 ('dsm','Desarrollo de Software Multiplataoforma'),('dd','Diseño digital'),
 ('dmi','Diseño de Modas Industrial'),('ird','Infraestrucura de Redes');
-
+/*Materias*/
 insert into materia values
 ("001","Formacion Sociocultural III"), ("002","Ingles III"),("003","Matematicas"),
 ("004","Sistemas Operativos"), ("005","Base de datos para aplicaciones"),("006","Aplicaciones Web"),
@@ -12,14 +13,17 @@ insert into materia values
 ("019","Metodos de confeccion"),("020","Sistemas de graduacion industrial"),("021","Metodologia de la investigacion"),
 ("022","Taller de confeccion TSU");
 select * from materia;
+/*materia_carrera*/
 insert into materia_carrera values
 ("DSM","001"),("DSM","002"),("DSM","004"),("DSM","005"),("DSM","006"),("DSM","007"),("DSM","008"),
 ("DD","001"),("DD","002"),("DD","011"),("DD","012"),("DD","013"),("DD","014"),("DD","015"),("DD","016"),
 ("DMI","001"),("DMI","002"),("DMI","003"),("DMI","017"),("DMI","018"),("DMI","019"),("DMI","020"),("DMI","021"),("DMI","022"),
 ("IRD","001"),("IRD","002"),("IRD","004"),("IRD","006"),("IRD","007"),("IRD","009"),("IRD","010");
-select * from materia_carrera;
-
-select * from docente;
+/*Admin*/
+insert into administrador values('Jazmin','1234');
+select * from estudiante;
+select * from cuatrimestre;
+select * from estudiante;
 select ID_Materia, Nombre from docente_has_materia inner join materia where ID=ID_Materia and Correo_Docente="Ejemplo@utez.edu.mx";
 insert into docente_has_materia values("Ejemplo@utez.edu.mx","001");
 select * from docente_has_materia;

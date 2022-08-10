@@ -1,7 +1,8 @@
 /*---TRIGGERS---*/
 
 /*Cuatrimestre*/
-CREATE DEFINER=`root`@`localhost` TRIGGER `cuatrimestre_BEFORE_INSERT` BEFORE INSERT ON `cuatrimestre` FOR EACH ROW BEGIN
+CREATE DEFINER=`root`@`localhost` TRIGGER `cuatrimestre_BEFORE_INSERT` BEFORE INSERT ON `cuatrimestre` FOR EACH ROW 
+BEGIN
 declare 
 sid varchar(11);
 set sid=concat(new.Periodo,'',new.yeear);
