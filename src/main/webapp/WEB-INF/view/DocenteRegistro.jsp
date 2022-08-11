@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +22,7 @@
                 <form action="newDocente"method="post" class="col-md-4 col-sm-6 container-right height100">
                         <div class="row crhead">
                             <div class="col"><p class="subtitles">Registro docente</p></div>
-                            <div class="col" style="text-align:right;"><a href="#">Iniciar sesión</a></div>
+                            <div class="col" style="text-align:right;"><a href="login">Iniciar sesión</a></div>
                         </div>
                         <div class="row crbody">
                             <p class="subtitles">Nombre</p>
@@ -32,16 +33,30 @@
                             <input type="text" class="form-control" name="ap2">
                             <p class="subtitles">Correo</p>
                             <input type="text" class="form-control" name="email">
+                            <c:if test="${param['message']=='error'}">
+                                <div class="alert alert-danger">
+                                    Error docente ya registrado
+                                </div>
+                            </c:if>
+                            <c:if test="${param['message']=='bademail'}">
+                                <div class="alert alert-danger">
+                                    Error ingresa un correo institucional de docente
+                                </div>
+                            </c:if>
                             <p class="subtitles">Contraseña</p>
                             <input type="text" class="form-control" name="password">
                             <p class="subtitles">Comfirmar contraseña</p>
                             <input type="text" class="form-control">
+                            <c:if test="${param['message']=='succesfully'}">
+                                <div class="alert alert-secondary">
+                                    Revisa tu bandeja de entrada y sigue los pasos para continuar con tu registro!
+                                </div>
+                            </c:if>
                         </div>
                         <div class="row crfoot">
                             <div class="col"><button class="btn" type="submit">Registrar</button></div>
                             <div class="col" style="text-align:right;"><a href="index" class="btn btn-primary">Cancelar</a> </div>
                         </div>
-                    </div>
                 </form>
 
 

@@ -62,12 +62,12 @@
           <form action="save-student" method="post">
             <div class="mb-3 row">
               <div class="col">
-                <c:if test="${param['message']=='error'}">
-                  <div class="alert alert-warning">
-                    A ocurrido un error :c
+                <h3 style="float:left;"><b>Crear cuenta </b></h3><br><br>
+                <c:if test="${param['message']=='succesfully'}">
+                  <div class="alert alert-secondary">
+                    Revisa tu bandeja de entrada y sigue los pasos para continuar con tu registro!
                   </div>
                 </c:if>
-                <h3 style="float:left;"><b>Crear cuenta </b></h3><br><br>
                 <label  for="inputUser" class="form-label" style=" font-size: large;float: left;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -79,15 +79,25 @@
             <div class="mb-3 row">
               <div class="col">
                 <label for="exampleInputEmail" class="form-label" style="font-size:large;float: left;">Correo Electrónico Institucional <span class="text-danger">*</span></label>
-                <input type="email" name="email" id="exampleInputEmail" class="form-control" placeholder="matriculaEstudiante@utez.edu.mx" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="email" name="email" id="exampleInputEmail" class="form-control" placeholder="Correo" aria-label="Recipient's username" aria-describedby="basic-addon2">
               </div>
             </div>
+            <c:if test="${param['message']=='bademail'}">
+              <div class="alert alert-danger">
+                Error ingresa un correo institucional de estudiante
+              </div>
+            </c:if>
             <div class="mb-3 row">
               <div class="col">
                 <label for="inputPassword" class="form-label" style="font-size:large;float:left;"> Contraseña<span class="text-danger">*</span></label>
                 <input type="password" class="form-control" id="inputPassword" name="password">
               </div>
             </div>
+            <c:if test="${param['message']=='error'}">
+              <div class="alert alert-danger">
+                Error Usuario ya registrado
+              </div>
+            </c:if>
             <div class="mb-3 row">
               <div class="col">
                 <label for="inputPassword" class="form-label" style=" font-size: large;float: left;">Confirmar contraseña<span class="text-danger">*</span></label>
@@ -126,7 +136,7 @@
 
               <div class="col">
                 <div class="form-check form-check-inline ">
-                  <input class="form-check-input" type="radio" name="sexo" id="inlineRadio1" value="M">
+                    <input class="form-check-input" type="radio" name="sexo" id="inlineRadio1" value="M">
                   <label class="form-check-label" for="inlineRadio1"> Femenino</label>
                 </div>
               </div>
@@ -148,7 +158,7 @@
 
                 </div>
                 <div class="col-6">
-                  <button type="reset" class="btn btn-light" style="float: left; background-color: #D5DBDB;">Cancelar</button>
+                  <a href="index" class="btn btn-light">Cancelar</a>
                 </div>
               </div>
             </div>

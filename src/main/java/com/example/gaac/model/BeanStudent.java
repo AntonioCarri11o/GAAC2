@@ -8,12 +8,10 @@ public class BeanStudent {
     private String telefono;
     private String carrera;
     private String password;
-
     private String matricula;
-
     private String estado;
-
     private String cuatrimestre;
+    private String code;
     public BeanStudent(){
 
     }
@@ -93,5 +91,13 @@ public class BeanStudent {
 
     public void setCuatrimestre(String cuatrimestre) {
         this.cuatrimestre = cuatrimestre;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

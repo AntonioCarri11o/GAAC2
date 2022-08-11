@@ -1,10 +1,16 @@
 package com.example.gaac.control;
 
 import com.example.gaac.model.BeanStudent;
+import com.example.gaac.model.CodeGenerator;
+import com.example.gaac.model.Utils.EmailSender;
+import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
+import org.apache.commons.mail.EmailException;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +19,8 @@ import java.util.List;
                 "/list-student",//get
                 "/save-student",//post
                 "/get-student",//get
-                "/status-student"//get
+                "/status-student",//get
+                "/comfirm-student"//post
 
         }
 
@@ -75,28 +82,57 @@ public class ServletStudent extends HttpServlet {
         ServicesStudent servicesStudent = new ServicesStudent();
         switch (option){
             case "/save-student":
-                try{
-                    String name=request.getParameter("name")!=null? request.getParameter("name"):"";
-                    String correo= request.getParameter("email")!=null? request.getParameter("email"):"";
-                    String sexotochar= request.getParameter("sexo")!=null? request.getParameter("sexo"):"";
-                    char sexo=sexotochar.charAt(0);
-                    String telefono= request.getParameter("tel")!=null? request.getParameter("tel"):"";
-                    String carrera=request.getParameter("carrera")!=null? request.getParameter("carrera"):"";
-                    String contrasena=request.getParameter("password")!=null? request.getParameter("password"):"";
-                    BeanStudent student= new BeanStudent();
-                    student.setEmail(correo);
-                    student.setName(name);
-                    student.setSexo(sexo);
-                    student.setCarrera(carrera);
-                    student.setTelefono(telefono);
-                    student.setPassword(contrasena);
-                    boolean result= servicesStudent.saveStudent(student);
-                    response.sendRedirect("EstudiantesRegistro");
-                    System.out.println("Todo bien compare");
-                    //request.getRequestDispatcher("WEB-INF/view/").forward(request,response);
-                }catch (Exception e){
-                    e.printStackTrace();
-                    response.sendRedirect("EstudiantesRegistro?message?=error");
+                boolean result;
+                String name=request.getParameter("name")!=null?request.getParameter("name"):"";
+                String correo= request.getParameter("email")!=null?request.getParameter("email"):"";
+                String password = request.getParameter("password")!=null?request.getParameter("password"):"";
+                String carrera= request.getParameter("carrera")!=null?request.getParameter("carrera"):"";
+                String tel= request.getParameter("tel")!=null?request.getParameter("tel"):"";
+                String sexo= request.getParameter("sexo")!=null?request.getParameter("sexo"):"";
+                BeanStudent student= new BeanStudent();
+                student.setName(name);
+                student.setEmail(correo);
+                student.setPassword(password);
+                student.setCarrera(carrera);
+                student.setTelefono(tel);
+                student.setSexo(sexo.charAt(0));
+                if(correo.length()<22){
+                    response.sendRedirect("EstudiantesRegistro?message=bademail");
+                }else{
+                    String parts[];
+                    parts=correo.split("@");
+                    String part1=parts[0];
+                    String part2="@"+parts[1];
+                    System.out.println(part1);
+                    System.out.println(part2);
+                    System.out.println(part1.substring(0,2));
+                    if(part1.substring(0,2).equals("20") && part2.equals("@utez.edu.mx")){
+                        CodeGenerator generator= new CodeGenerator();
+                        String code= generator.GenerateCode();
+                        student.setCode(code);
+                        result=servicesStudent.saveStudent(student);
+                        if(result!=false){
+                            try {
+                                EmailSender.sendEmail(1,student.getEmail(),code);
+                            } catch (EmailException e) {
+                                throw new RuntimeException(e);
+                            }
+                            response.sendRedirect("EstudiantesRegistro?message=succesfully");
+                        }else{
+                            response.sendRedirect("EstudiantesRegistro?message=error");
+                        }
+                    }else{
+                        response.sendRedirect("EstudiantesRegistro?message=bademail");
+                    }
+                }
+                break;
+            case "/comfirm-student":
+                String code= request.getParameter("code")!=null?request.getParameter("code"):"";
+                result=servicesStudent.comfirmStudent(code);
+                if(result!=false){
+                    response.sendRedirect("Succesfully?message=succesfully");
+                }else{
+                    response.sendRedirect("RegistroEstudianteDos?message=error");
                 }
                 break;
             default:

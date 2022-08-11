@@ -25,4 +25,9 @@ public class ServicesStudent {
         BeanStudent student= daoStudent.getStudent(matricula);
         return student;
     }
+    public boolean comfirmStudent(String code){
+        DaoStudent daoStudent= new DaoStudent();
+        boolean result= daoStudent.comfirmStudent(code);
+        return result;
+    }
 }

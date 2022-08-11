@@ -22,6 +22,9 @@ urlPatterns = {
         "/PerfilDocente",
         "/newCuatrimestre",//get
         "/carreras",//get
+        "/RegistroEstudianteDos",//get
+        "/Succesfully",//get
+        "/RegistroDocenteDos",//get
         "/pruebas"
 
 }
@@ -68,11 +71,22 @@ public class ServletHome extends HttpServlet {
             case "/carreras":
                 request.getRequestDispatcher("WEB-INF/view/Carreras.jsp").forward(request,response);
                 break;
+            case "/RegistroEstudianteDos":
+                request.getRequestDispatcher("WEB-INF/view/EstudiantesConfirma.jsp").forward(request,response);
+                break;
+            case "/Succesfully":
+                request.getRequestDispatcher("WEB-INF/view/RegistroExitoso.jsp").forward(request,response);
+                break;
+            /*default:
+                response.sendRedirect("index");*/
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String option=request.getServletPath();
+        switch (option){
 
+        }
     }
 }

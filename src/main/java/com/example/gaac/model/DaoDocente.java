@@ -3,10 +3,7 @@ package com.example.gaac.model;
 import com.example.gaac.model.Utils.MySQLConnection;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +22,8 @@ public class DaoDocente {
             pstm.setString(5, docente.getContrasena());
             result=pstm.executeUpdate()==1;
 
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            System.out.println("Docente ya registrado");
         }
         return result;
 

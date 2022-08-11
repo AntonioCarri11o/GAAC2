@@ -2,6 +2,7 @@ package com.example.gaac.control;
 
 import com.example.gaac.model.BeanDocente;
 import com.example.gaac.model.BeanMateria;
+import com.example.gaac.model.CodeGenerator;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -96,42 +97,54 @@ public class ServletDocente extends HttpServlet {
         ServiceDocente serviceDocente= new ServiceDocente();
         String option = request.getServletPath();
         HttpSession session = request.getSession();
+        boolean result;
         switch (option){
             case "/newDocente":
-                try{
-                    BeanDocente docente= new BeanDocente();
-                    String name = request.getParameter("name")!=null?request.getParameter("name"):"";
-                    String apellidoP = request.getParameter("ap1")!=null?request.getParameter("ap1"):"";
-                    String apellidoM= request.getParameter("ap2")!=null?request.getParameter("ap2"):"";
-                    String correo = request.getParameter("email")!=null?request.getParameter("email"):"";
-                    String password= request.getParameter("password")!=null?request.getParameter("password"):"";
+                BeanDocente docente= new BeanDocente();
+                String name = request.getParameter("name")!=null?request.getParameter("name"):"";
+                String apellidoP = request.getParameter("ap1")!=null?request.getParameter("ap1"):"";
+                String apellidoM= request.getParameter("ap2")!=null?request.getParameter("ap2"):"";
+                String correo = request.getParameter("email")!=null?request.getParameter("email"):"";
+                String password= request.getParameter("password")!=null?request.getParameter("password"):"";
+                String parts[]=correo.split("@");
+                String part1= parts[0];
+                String part2="@"+parts[1];
+                if(!part1.substring(0,2).equals("20") && part2.equals("@utez.edu.mx")){
                     docente.setName(name);
                     docente.setApellido1(apellidoP);
                     docente.setApellido2(apellidoM);
                     docente.setEmail(correo);
                     docente.setContrasena(password);
-                    boolean result= serviceDocente.newDocente(docente);
-                    response.sendRedirect("DocenteRegistro");
-                }catch (Exception e){
-                    e.printStackTrace();
+                    result= serviceDocente.newDocente(docente);
+                    if(result!=false){
+                        CodeGenerator generator= new CodeGenerator();
+                        String code = generator.GenerateCode();
+
+                        response.sendRedirect("DocenteRegistro?message=succesfully");
+                    }else {
+                        response.sendRedirect("DocenteRegistro?message=error");
+                    }
+                }else {
+                    response.sendRedirect("DocenteRegistro?message=bademail");
                 }
+
                 break;
             case "/perfilDocenteUpdate":
-                String name=request.getParameter("name")!=null?request.getParameter("name"):String.valueOf(session.getAttribute("name"));
+                String nombre=request.getParameter("name")!=null?request.getParameter("name"):String.valueOf(session.getAttribute("name"));
                 String ap1=request.getParameter("ap1")!=null?request.getParameter("ap1"):String.valueOf(session.getAttribute("ap1"));
                 String ap2=request.getParameter("ap2")!=null?request.getParameter("ap2"):String.valueOf(session.getAttribute("ap2"));
-                BeanDocente docente= new BeanDocente();
-                docente.setName(name);
-                docente.setApellido1(ap1);
-                docente.setApellido2(ap2);
-                docente.setEmail(String.valueOf(session.getAttribute("email")));
-                boolean result;
+                BeanDocente docente1= new BeanDocente();
+                docente1.setName(nombre);
+                docente1.setApellido1(ap1);
+                docente1.setApellido2(ap2);
+                docente1.setEmail(String.valueOf(session.getAttribute("email")));
+                result=serviceDocente.updateDocente(docente1);
                 try{
-                    result =serviceDocente.updateDocente(docente);
+                    result =serviceDocente.updateDocente(docente1);
                     if(result!=false){
-                        session.setAttribute("name",docente.getName());
-                        session.setAttribute("ap1",docente.getApellido1());
-                        session.setAttribute("ap2",docente.getApellido2());
+                        session.setAttribute("name",docente1.getName());
+                        session.setAttribute("ap1",docente1.getApellido1());
+                        session.setAttribute("ap2",docente1.getApellido2());
                     }
                     response.sendRedirect("PerfilDocente");
                 }catch (Exception e){
