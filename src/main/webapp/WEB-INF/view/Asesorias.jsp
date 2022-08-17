@@ -13,45 +13,117 @@
 <body style="display:block;">
 <jsp:include page="templates/import-navbarStudent.jsp"/>
 <jsp:include page="templates/import-styles.jsp"/>
+<script>
+  function showAll() {
+    var a=document.getElementById("uno");
+    var b=document.getElementById("dos");
+    var c=document.getElementById("tres");
+    var d=document.getElementById("cuatro");
+    var e=document.getElementById("cinco");
+    var f=document.getElementById("seis");
+    a.style.display="block";
+    b.style.display="none";
+    c.style.display="none";
+    d.style.display="none";
+    e.style.display="none";
+    f.style.display="none";
+  }
+  function showCan() {
+    var a=document.getElementById("uno");
+    var b=document.getElementById("dos");
+    var c=document.getElementById("tres");
+    var d=document.getElementById("cuatro");
+    var e=document.getElementById("cinco");
+    var f=document.getElementById("seis");
+    a.style.display="none";
+    b.style.display="block";
+    c.style.display="none";
+    d.style.display="none";
+    e.style.display="none";
+    f.style.display="none";
+  }
+  function showImp() {
+    var a=document.getElementById("uno");
+    var b=document.getElementById("dos");
+    var c=document.getElementById("tres");
+    var d=document.getElementById("cuatro");
+    var e=document.getElementById("cinco");
+    var f=document.getElementById("seis");
+    a.style.display="none";
+    b.style.display="none";
+    c.style.display="block";
+    d.style.display="none";
+    e.style.display="none";
+    f.style.display="none";
+  }
+  function showPen() {
+    var a=document.getElementById("uno");
+    var b=document.getElementById("dos");
+    var c=document.getElementById("tres");
+    var d=document.getElementById("cuatro");
+    var e=document.getElementById("cinco");
+    var f=document.getElementById("seis");
+    a.style.display="none";
+    b.style.display="none";
+    c.style.display="none";
+    d.style.display="blok";
+    e.style.display="none";
+    f.style.display="none";
+  }
+  function showRech() {
+    var a=document.getElementById("uno");
+    var b=document.getElementById("dos");
+    var c=document.getElementById("tres");
+    var d=document.getElementById("cuatro");
+    var e=document.getElementById("cinco");
+    var f=document.getElementById("seis");
+    a.style.display="none";
+    b.style.display="none";
+    c.style.display="none";
+    d.style.display="none";
+    e.style.display="block";
+    f.style.display="none";
+  }
+  function showSol() {
+    var a=document.getElementById("uno");
+    var b=document.getElementById("dos");
+    var c=document.getElementById("tres");
+    var d=document.getElementById("cuatro");
+    var e=document.getElementById("cinco");
+    var f=document.getElementById("seis");
+    a.style.display="none";
+    b.style.display="none";
+    c.style.display="none";
+    d.style.display="none";
+    e.style.display="none";
+    f.style.display="block";
+  }
+
+</script>
   <div class="lesscontainer">
     <div class="container-fluid scont">
-      <fieldset class="row tfiltro">
-        <div class="col" ><p class="subtitles">Filtrar</p></div>
-        <div class="col">
-          <label for="all" class="subtitles">Todas</label>
-          <input type="radio" id="all" name="filtrar" value="all"checked>
-        </div>
-        <div class="col">
-          <label for="can" class="subtitles">Canceladas</label>
-          <input type="radio" id="can" name="filtrar" value="canceladas">
-        </div>
-        <div class="col">
-          <label for="imp" class="subtitles">Impartidas</label>
-          <input type="radio" id="imp" name="filtrar" value="impartidas">
-        </div>
-        <div class="col">
-          <label for="pen" class="subtitles">Pendientes</label>
-          <input type="radio" id="pen" name="filtrar" value="pendientes">
-        </div>
-        <div class="col">
-          <label for="rec" class="subtitles">Rechazadas</label>
-          <input type="radio" id="rec" name="filtrar" value="rechazadas">
-        </div>
-        <div class="col">
-          <label for="sol" class="subtitles">Solicitadas</label>
-          <input type="radio" id="sol" name="filtrar" value="rechazadas">
-        </div>
-      </fieldset> 
+      <div class="row">
+        <button onclick="showAll()" type="button" class="filterbtn col-2" id="all">Todas</button>
+        <button onclick="showCan()" type="button" class="filterbtn col-2" activos="can">Canceladas</button>
+        <button onclick="showImp()" type="button" class="filterbtn col-2" id="imp">Impartidas</button>
+        <button onclick="showPen()" type="button" class="filterbtn col-2" id="pen">Pendientes</button>
+        <button onclick="showRech()" type="button" class="filterbtn col-2" activos="rech">Rechazadas</button>
+        <button onclick="showSol()" type="button" class="filterbtn col-2" id="sol">Solicitadas</button>
+      </div>
       <div class="row theader">
         <div class="col"><p class="subtitles" style="color:white;">Fecha</p></div>
         <div class="col"><p class="subtitles" style="color:white;">Materia</p></div>
         <div class="col"><p class="subtitles" style="color:white;">Docente</p></div>
         <div class="col"></div>
       </div>
-      <table>
-        <tr>
-        </tr>
-      </table>   
+        <c:forEach items="${list}" var="sesion">
+            <div class="row" id="uno">
+                <div class="col"><c:out value="${sesion.date}"/></div>
+                <div class="col"><c:out value="${sesion.nameMateria}"/></div>
+                <div class="col"><c:out value="${sesion.nameTeacher}"/></div>
+            </div>
+        </c:forEach>
+        <div></div>
       </div>
     </div>
 <a href="listMaterias"

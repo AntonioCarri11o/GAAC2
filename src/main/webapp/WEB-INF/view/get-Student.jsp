@@ -18,7 +18,7 @@
             <form action="status-student" method="get">
                 <div class="mb-3">
                     <p class="subtitles">Estado</p>
-                    <input hidden value="${studentx.matricula}" name="matricula">
+                    <input hidden value="${studentx.email}" name="email">
                     <select class="form-select" id="validationDefault04" required name="status">
                         <option hidden selected value="${studentx.estado}"><c:out value="${studentx.estado}"/></option>
                         <option value="Activo">Activo</option>

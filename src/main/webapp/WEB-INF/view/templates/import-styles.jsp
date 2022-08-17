@@ -82,7 +82,6 @@
     .scont{
         width: 90%;
         min-height: 60%;
-        border: solid 1px #C4C4C4;
         margin: 5em auto 0 auto;
     }
     .tfiltro{
@@ -173,9 +172,6 @@
         border-radius: 100%;
         background-color: red;
         margin: .2em .5em 0 auto;
-    }
-    .cardcuatbody{
-
     }
     .btnexpand{
         width: 80%;
@@ -288,10 +284,6 @@
         width: 100%;
         margin: auto 0 0 0;
     }
-.btnmod:hover:after{
-    content: "Modificar";
-    transition: color 0.1s linear 0.1s;
-}
 
 #all:checked ~ #tablas #dos,#all:checked ~ #tablas #tres{
     display: none;
@@ -320,5 +312,20 @@
 }
 .fa-plus:hover{
     color: white;
+}
+.filterbtn{
+    background: white;
+    margin: 0;
+    border: 0;
+}
+.filterbtn:focus{
+    background-color: #002E60;
+    color: white;
+}
+#dos{
+    display: none;
+}
+#tres{
+    display: none;
 }
 </style>

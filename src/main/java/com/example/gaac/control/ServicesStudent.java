@@ -49,4 +49,9 @@ public class ServicesStudent {
         boolean result= daoStudent.saveAdvisory(emailTeacher, emailStudent,materia);
         return result;
     }
+    public List<BeanSesion>listSesions(String correo){
+        DaoStudent daoStudent= new DaoStudent();
+        List <BeanSesion>listSesions=daoStudent.listSesions(correo);
+        return  listSesions;
+    }
 }

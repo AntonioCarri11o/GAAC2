@@ -3,6 +3,7 @@ package com.example.gaac.control;
 
 //import com.example.gaac.model.BeanStudent;
 import com.example.gaac.model.BeanMateria;
+import com.example.gaac.model.BeanSesion;
 import com.example.gaac.model.BeanStudent;
 
 import javax.servlet.*;
@@ -73,7 +74,10 @@ public class ServletHome extends HttpServlet {
                 String nameCarrera=servicesStudent.getNameCarrera(String.valueOf(session.getAttribute("carrera")));
                 student.setNameCarrera(nameCarrera);
                 session.setAttribute("nameCarrera",nameCarrera);
+                List <BeanSesion>listSesions=servicesStudent.listSesions(student.getEmail());
+                request.setAttribute("list",listSesions);
                 request.getRequestDispatcher("WEB-INF/view/Asesorias.jsp").forward(request,response);
+                break;
             case "/AsesoriasD":
                 request.getRequestDispatcher("WEB-INF/view/AsesoriasD.jsp").forward(request, response);
                 break;

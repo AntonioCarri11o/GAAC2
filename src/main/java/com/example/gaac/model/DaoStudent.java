@@ -11,6 +11,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoStudent {
+    public List<BeanSesion>listSesions(String correo){
+        List<BeanSesion>listSessions= new ArrayList<>();
+        try(Connection connection=MySQLConnection.getConnection();
+            PreparedStatement pstm=connection.prepareStatement(
+                    "select Fecha,sesion_asesoria.id,sesion_asesoria.estado,\n" +
+                            "Correo_Docente,Correo_Estudiante,id_materia, estudiante.NombreCompleto,Docente.Nombre,\n" +
+                            "Docente.Apellido1,Docente.Apellido2,materia.Nombre from sesion_asesoria \n" +
+                            "inner join estudiante on Correo_estudiante=estudiante.correo \n" +
+                            "inner join docente on Correo_docente=docente.Correo \n" +
+                            "inner join materia on ID_materia=materia.ID where correo_estudiante=?;"
+            )
+        ){
+            pstm.setString(1,correo);
+            ResultSet rs=pstm.executeQuery();
+            while (rs.next()){
+                BeanSesion sesion= new BeanSesion();
+                sesion.setId(rs.getInt("sesion_asesoria.id"));
+                sesion.setEmailStudent(correo);
+                sesion.setEmailTechaer(rs.getString("Correo_Docente"));
+                String name=rs.getString("Docente.Nombre");
+                String ape1=rs.getString("Docente.Apellido1");
+                String ape2=rs.getString("Docente.Apellido2");
+                sesion.setNameTeacher(name+" "+ape1+" "+ape2);
+                sesion.setNameStudent(rs.getString("estudiante.NombreCompleto"));
+                sesion.setIdMateria(rs.getString("id_materia"));
+                sesion.setNameMateria(rs.getString("materia.Nombre"));
+                sesion.setEstado(rs.getString("sesion_asesoria.estado"));
+                sesion.setDate(rs.getString("Fecha").substring(0,11));
+                listSessions.add(sesion);
+            }
+            rs.close();
+            pstm.close();
+            connection.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listSessions;
+    }
     public boolean saveAdvisory(String emailTeacher, String emailStudent, String materia){
         boolean result=false;
         try(Connection connection= MySQLConnection.getConnection();
