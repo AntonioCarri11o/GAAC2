@@ -8,18 +8,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoDocente {
+    public List<BeanDocente> listDocenteMateria(String materia){
+        List<BeanDocente>listDocenteMateria= new ArrayList<>();
+        try(Connection connection= MySQLConnection.getConnection();
+            PreparedStatement pstm=connection.prepareStatement(
+                    "select Correo_Docente, docente.Nombre,docente.Apellido1,docente.Apellido2 from docente_has_materia inner join docente on Correo_Docente=docente.Correo where ID_Materia=? and docente_has_materia.Estado='Activa';"
+            )
+        ){
+            pstm.setString(1,materia);
+            ResultSet rs=pstm.executeQuery();
+            while (rs.next()){
+                BeanDocente docente= new BeanDocente();
+                docente.setEmail(rs.getString("Correo_Docente"));
+                docente.setName(rs.getString("docente.Nombre"));
+                docente.setApellido1(rs.getString("docente.Apellido1"));
+                docente.setApellido2(rs.getString("docente.Apellido2"));
+                docente.setName(docente.getName()+" "+docente.getApellido1()+" "+docente.getApellido2());
+                listDocenteMateria.add(docente);
+            }
+            rs.close();
+            pstm.close();
+            connection.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listDocenteMateria;
+    }
     public boolean saveDocente(BeanDocente docente){
         boolean result=false;
         try(
                 Connection connection= MySQLConnection.getConnection();
                 PreparedStatement pstm= connection.prepareStatement(
-                        "insert into docente (Correo,Nombre, Apellido1, Apellido2,Contrasena) values(?,?,?,?,?);")
+                        "insert into docente (Correo,Nombre, Apellido1, Apellido2,Contrasena,Codigo) values(?,?,?,?,?,?);")
                 ){
             pstm.setString(1, docente.getEmail());
             pstm.setString(2,docente.getName());
             pstm.setString(3, docente.getApellido1());
             pstm.setString(4, docente.getApellido2());
             pstm.setString(5, docente.getContrasena());
+            pstm.setString(6,docente.getCode());
             result=pstm.executeUpdate()==1;
 
         }catch (SQLException e){
@@ -32,7 +59,7 @@ public class DaoDocente {
         boolean result =false;
         try(Connection connection = MySQLConnection.getConnection();
             PreparedStatement pstm= connection.prepareStatement(
-                    "update docente set Nombre=?, Apellido1=?, Apellido2=? where Correo=?"
+                    "update docente set Nombre=?, Apellido1=?, Apellido2=? where Correo=?;"
             )
         ){
                 pstm.setString(1,docente.getName());
@@ -129,5 +156,20 @@ public class DaoDocente {
             e.printStackTrace();
         }
         return listMateriasC;
+    }
+    public boolean comfirmTeacher(String code){
+        boolean result=false;
+        try(
+                Connection connection = MySQLConnection.getConnection();
+                PreparedStatement pstm= connection.prepareStatement(
+                        "UPDATE docente set Estado='Activo',codigo=null where codigo=?;"
+                )
+        ){
+                    pstm.setString(1,code);
+                    result=pstm.executeUpdate()==1;
+        }catch (SQLException e){
+            System.out.println("Error de sql");
+        }
+        return result;
     }
 }

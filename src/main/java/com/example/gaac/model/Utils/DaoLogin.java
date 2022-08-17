@@ -13,7 +13,7 @@ public class DaoLogin {
             String requiredStatus="Activo";
             try(
                     Connection con =MySQLConnection.getConnection();
-                    PreparedStatement pstm=con.prepareStatement("select *from estudiante where (Correo=? and Contrasena=? and estado=?);");
+                    PreparedStatement pstm=con.prepareStatement("select Correo, Matricula,NombreCompleto,Telefono,sexo,carrera.nombre,ID_carrera from estudiante inner join carrera on ID_carrera=carrera.ID where (Correo=? and Contrasena=? and estado=?);")
             ){
                 pstm.setString(1,correo);
                 pstm.setString(2,pass);
@@ -21,6 +21,13 @@ public class DaoLogin {
                 ResultSet rs= pstm.executeQuery();
                 while (rs.next()){
                     beanlogin.setCorreo(rs.getString("Correo"));
+                    beanlogin.setMatricula(rs.getString("Matricula"));
+                    beanlogin.setName(rs.getString("NombreCompleto"));
+                    beanlogin.setTelefono(rs.getString("Telefono"));
+                    char sexo=rs.getString("sexo".toString()).charAt(0);
+                    beanlogin.setSexo(sexo);
+                    beanlogin.setIdCarrera(rs.getString("ID_carrera"));
+                    beanlogin.setCarrera(rs.getString("carrera.nombre"));
                 }
             }catch (Exception e){
                 e.printStackTrace();

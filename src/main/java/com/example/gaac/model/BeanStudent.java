@@ -12,6 +12,7 @@ public class BeanStudent {
     private String estado;
     private String cuatrimestre;
     private String code;
+    private String nameCarrera;
     public BeanStudent(){
 
     }
@@ -99,5 +100,13 @@ public class BeanStudent {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getNameCarrera() {
+        return nameCarrera;
+    }
+
+    public void setNameCarrera(String nameCarrera) {
+        this.nameCarrera = nameCarrera;
     }
 }

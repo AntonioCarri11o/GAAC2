@@ -3,6 +3,8 @@ package com.example.gaac.control;
 import com.example.gaac.model.BeanDocente;
 import com.example.gaac.model.BeanMateria;
 import com.example.gaac.model.CodeGenerator;
+import com.example.gaac.model.Utils.EmailSender;
+import org.apache.commons.mail.EmailException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,7 +19,8 @@ urlPatterns = {
         "/listMateriasD",//get
         "/save-materia",//get
         "/status-materia",//get
-        "/perfilDocenteUpdate"//post
+        "/perfilDocenteUpdate",//post
+        "/comfirm-docente"//post
 }
 )
 public class ServletDocente extends HttpServlet {
@@ -115,11 +118,16 @@ public class ServletDocente extends HttpServlet {
                     docente.setApellido2(apellidoM);
                     docente.setEmail(correo);
                     docente.setContrasena(password);
+                    CodeGenerator generator= new CodeGenerator();
+                    String code = generator.GenerateCode();
+                    docente.setCode(code);
                     result= serviceDocente.newDocente(docente);
                     if(result!=false){
-                        CodeGenerator generator= new CodeGenerator();
-                        String code = generator.GenerateCode();
-
+                        try{
+                            EmailSender.sendEmail(1,docente.getEmail(),code,2);
+                        }catch (EmailException e){
+                            throw new RuntimeException(e);
+                        }
                         response.sendRedirect("DocenteRegistro?message=succesfully");
                     }else {
                         response.sendRedirect("DocenteRegistro?message=error");
@@ -152,6 +160,15 @@ public class ServletDocente extends HttpServlet {
                     response.sendRedirect("PerfilDocente");
                 }
 
+                break;
+            case "/comfirm-docente":
+                String code= request.getParameter("code")!=null?request.getParameter("code"):"";
+                result=serviceDocente.comfirmTeacher(code);
+                if(result!=false){
+                    response.sendRedirect("Succesfully?message=succesfully");
+                }else{
+                    response.sendRedirect("RegistroDocenteDos?message=error");
+                }
                 break;
             default:
                 response.sendRedirect("index");

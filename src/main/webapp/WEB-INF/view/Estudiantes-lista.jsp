@@ -42,9 +42,8 @@
               <div class="col"><c:out value="${student.carrera}"/></div>
               <div class="col"></div>
               <div class="col">
-                <a href="get-student?matricula=${student.matricula}" class="btn btnmod" style="width:100%;">
+                <a href="get-student?email=${student.email}" class="btn btnmod" style="width:100%;">
                   <c:out value="${student.estado}"/>
-
                 </a>
               </div>
             </div>

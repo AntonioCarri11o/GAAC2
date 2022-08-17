@@ -1,6 +1,5 @@
 package com.example.gaac.control;
-import com.example.gaac.model.BeanStudent;
-import com.example.gaac.model.DaoStudent;
+import com.example.gaac.model.*;
 
 import java.util.List;
 
@@ -15,19 +14,39 @@ public class ServicesStudent {
         boolean result =daoStudent.newStudent(student);
         return result;
     }
-    public boolean statusStudent(String matricula, String status){
+    public boolean updateStudent(BeanStudent student){
         DaoStudent daoStudent= new DaoStudent();
-        boolean result=daoStudent.statusStudent(matricula, status);
+        boolean result=daoStudent.updateStudent(student);
         return result;
     }
-    public BeanStudent getStudent(String matricula){
+    public boolean statusStudent(String email, String status){
         DaoStudent daoStudent= new DaoStudent();
-        BeanStudent student= daoStudent.getStudent(matricula);
+        boolean result=daoStudent.statusStudent(email, status);
+        return result;
+    }
+    public BeanStudent getStudent(String email){
+        DaoStudent daoStudent= new DaoStudent();
+        BeanStudent student= daoStudent.getStudent(email);
         return student;
+    }
+    public String getNameCarrera(String email){
+        DaoStudent daoStudent = new DaoStudent();
+        String nameCarrera= daoStudent.getNameCarrera(email);
+        return  nameCarrera;
     }
     public boolean comfirmStudent(String code){
         DaoStudent daoStudent= new DaoStudent();
         boolean result= daoStudent.comfirmStudent(code);
+        return result;
+    }
+    public List<BeanMateria>listMaterias(String carrera){
+        DaoStudent daoStudent= new DaoStudent();
+        List<BeanMateria> listMaterias=daoStudent.listMaterias(carrera);
+        return listMaterias;
+    }
+    public  boolean saveAdvisory(String emailTeacher, String emailStudent, String materia){
+        DaoStudent daoStudent = new DaoStudent();
+        boolean result= daoStudent.saveAdvisory(emailTeacher, emailStudent,materia);
         return result;
     }
 }

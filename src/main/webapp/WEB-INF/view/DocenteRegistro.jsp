@@ -35,7 +35,7 @@
                             <input type="text" class="form-control" name="email">
                             <c:if test="${param['message']=='error'}">
                                 <div class="alert alert-danger">
-                                    Error docente ya registrado
+                                    Error correo ya registrado
                                 </div>
                             </c:if>
                             <c:if test="${param['message']=='bademail'}">

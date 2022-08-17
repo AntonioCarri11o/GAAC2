@@ -1,11 +1,12 @@
 package com.example.gaac.control;
 
+import com.example.gaac.model.BeanDocente;
+import com.example.gaac.model.BeanMateria;
 import com.example.gaac.model.BeanStudent;
 import com.example.gaac.model.CodeGenerator;
 import com.example.gaac.model.Utils.EmailSender;
 import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
 import org.apache.commons.mail.EmailException;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -17,9 +18,13 @@ import java.util.List;
 @WebServlet(name = "ServletStudent",
         urlPatterns = {
                 "/list-student",//get
+                "/updateStudent",//post
                 "/save-student",//post
                 "/get-student",//get
                 "/status-student",//get
+                "/listMaterias",//get
+                "/newAdvisory",//get
+                "/saveAdvisory",///get
                 "/comfirm-student"//post
 
         }
@@ -30,7 +35,22 @@ public class ServletStudent extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option=request.getServletPath();
         ServicesStudent servicesStudent = new ServicesStudent();
+        ServiceDocente serviceDocente= new ServiceDocente();
+        HttpSession session=request.getSession();
         switch (option){
+            case "/newAdvisory":
+                String materia=request.getParameter("materia");
+                List<BeanDocente> listDocenteMateria=serviceDocente.listDocenteMateria(materia);
+                request.setAttribute("listDocenteMateria",listDocenteMateria);
+                request.setAttribute("materia",materia);
+                request.getRequestDispatcher("WEB-INF/view/GuardarAsesoria.jsp").forward(request,response);
+                break;
+
+            case "/listMaterias":
+                List<BeanMateria> listMaterias = servicesStudent.listMaterias(String.valueOf(session.getAttribute("idCarrera")));
+                request.setAttribute("listM",listMaterias);
+                request.getRequestDispatcher("WEB-INF/view/SolicitarAsesoria.jsp").forward(request,response);
+                break;
             case "/list-student":
                 System.out.println("Entró a liststudent");
                 List<BeanStudent> listStudents= servicesStudent.listStudents();
@@ -50,10 +70,10 @@ public class ServletStudent extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/view/Estudiantes-lista.jsp").forward(request,response);
                 break;
             case "/get-student":
-                String matricula=request.getParameter("matricula")!=null?request.getParameter("matricula"):"";
+                String email=request.getParameter("email")!=null?request.getParameter("email"):"";
                 try{
                     servicesStudent= new ServicesStudent();
-                    BeanStudent student= servicesStudent.getStudent(matricula);
+                    BeanStudent student= servicesStudent.getStudent(email);
                     request.setAttribute("studentx",student);
                     request.getRequestDispatcher("/WEB-INF/view/get-Student.jsp").forward(request,response);
                 }catch (Exception e){
@@ -62,15 +82,22 @@ public class ServletStudent extends HttpServlet {
                 break;
             case "/status-student":
                 System.out.println("Entró a status-student");
-                String matr=request.getParameter("matricula")!=null?request.getParameter("matricula"):"";
+                email=request.getParameter("email")!=null?request.getParameter("email"):"";
                 String status=request.getParameter("status")!=null?request.getParameter("status"):"";
                 try{
                     //ServicesStudent servicesStudent1 = new ServicesStudent();
-                    boolean result =servicesStudent.statusStudent(matr,status);
+                    boolean result =servicesStudent.statusStudent(email,status);
                     response.sendRedirect("list-student?result-update-status"+(result?"ok":"error"));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                break;
+            case "/saveAdvisory":
+                String idMateria=request.getParameter("materia");
+                String docenteCorreo=request.getParameter("correo")!=null?request.getParameter("correo"):"";
+                String correo=String.valueOf(session.getAttribute("email"));
+                boolean result=servicesStudent.saveAdvisory(docenteCorreo, correo,idMateria);
+                response.sendRedirect("AsesoriasE");
                 break;
         }
 
@@ -80,6 +107,8 @@ public class ServletStudent extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option=request.getServletPath();
         ServicesStudent servicesStudent = new ServicesStudent();
+        BeanStudent student= new BeanStudent();
+        HttpSession session=request.getSession();
         switch (option){
             case "/save-student":
                 boolean result;
@@ -89,7 +118,6 @@ public class ServletStudent extends HttpServlet {
                 String carrera= request.getParameter("carrera")!=null?request.getParameter("carrera"):"";
                 String tel= request.getParameter("tel")!=null?request.getParameter("tel"):"";
                 String sexo= request.getParameter("sexo")!=null?request.getParameter("sexo"):"";
-                BeanStudent student= new BeanStudent();
                 student.setName(name);
                 student.setEmail(correo);
                 student.setPassword(password);
@@ -103,9 +131,6 @@ public class ServletStudent extends HttpServlet {
                     parts=correo.split("@");
                     String part1=parts[0];
                     String part2="@"+parts[1];
-                    System.out.println(part1);
-                    System.out.println(part2);
-                    System.out.println(part1.substring(0,2));
                     if(part1.substring(0,2).equals("20") && part2.equals("@utez.edu.mx")){
                         CodeGenerator generator= new CodeGenerator();
                         String code= generator.GenerateCode();
@@ -113,7 +138,7 @@ public class ServletStudent extends HttpServlet {
                         result=servicesStudent.saveStudent(student);
                         if(result!=false){
                             try {
-                                EmailSender.sendEmail(1,student.getEmail(),code);
+                                EmailSender.sendEmail(1,student.getEmail(),code,1);
                             } catch (EmailException e) {
                                 throw new RuntimeException(e);
                             }
@@ -133,6 +158,34 @@ public class ServletStudent extends HttpServlet {
                     response.sendRedirect("Succesfully?message=succesfully");
                 }else{
                     response.sendRedirect("RegistroEstudianteDos?message=error");
+                }
+                break;
+            case "/updateStudent":
+                name = request.getParameter("name")!=null?request.getParameter("name"):"";
+                carrera=request.getParameter("carrera");
+                String nameCarrera=servicesStudent.getNameCarrera(carrera);
+                tel= request.getParameter("tel")!=null?request.getParameter("tel"):"";
+                sexo=request.getParameter("sexo");
+                student.setEmail(String.valueOf(session.getAttribute("email")));
+                System.out.println("Hola "+student.getEmail());
+                student.setName(name);
+                student.setCarrera(carrera);
+                student.setTelefono(tel);
+                student.setSexo(sexo.charAt(0));
+                try{
+                    result=servicesStudent.updateStudent(student);
+                    session.setAttribute("name",name);
+                    session.setAttribute("idCarrera",carrera);
+                    session.setAttribute("nameCarrera",nameCarrera);
+                    session.setAttribute("sexo",sexo);
+                    session.setAttribute("telefono",tel);
+                    //List <BeanMateria> listMaterias= servicesStudent.listMaterias(String.valueOf(session.getAttribute("idCarrera")));
+                    //session.setAttribute("listMaterias",listMaterias);
+                    response.sendRedirect("PerfilStudent");
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    response.sendRedirect("PerfilStudent?message=error");
                 }
                 break;
             default:

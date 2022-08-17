@@ -40,5 +40,14 @@ public class ServiceDocente {
         boolean result= daoDocente.saveMateria(correo,idMateria);
         return result;
     }
-
+    public boolean comfirmTeacher(String code){
+        DaoDocente daoDocente=new DaoDocente();
+        boolean result=daoDocente.comfirmTeacher(code);
+        return result;
+    }
+    public List<BeanDocente> listDocenteMateria(String materia){
+        DaoDocente daoDocente= new DaoDocente();
+        List<BeanDocente>listDocenteMateria= daoDocente.listDocenteMateria(materia);
+        return listDocenteMateria;
+    }
 }

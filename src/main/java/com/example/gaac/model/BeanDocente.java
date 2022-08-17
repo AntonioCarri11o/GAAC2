@@ -7,6 +7,7 @@ public class BeanDocente {
     private String email;
     private String contrasena;
     private String cuatrimestre;
+    private String code;
 
     public BeanDocente() {
 
@@ -58,5 +59,11 @@ public class BeanDocente {
 
     public void setCuatrimestre(String cuatrimestre) {
         this.cuatrimestre = cuatrimestre;
+    }
+    public String getCode(){
+        return code;
+    }
+    public  void setCode(String code){
+        this.code=code;
     }
 }

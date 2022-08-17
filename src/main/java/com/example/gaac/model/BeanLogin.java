@@ -7,6 +7,11 @@ public class BeanLogin {
     private String name;
     private String ap1;
     private String ap2;
+    private String carrera;
+    private char sexo;
+    private String telefono;
+    private String matricula;
+    private String idCarrera;
 
     private int role;
     public BeanLogin(){
@@ -63,5 +68,45 @@ public class BeanLogin {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public char getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getIdCarrera() {
+        return idCarrera;
+    }
+
+    public void setIdCarrera(String idCarrera) {
+        this.idCarrera = idCarrera;
     }
 }

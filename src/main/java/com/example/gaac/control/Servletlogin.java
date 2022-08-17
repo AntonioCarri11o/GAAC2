@@ -1,12 +1,15 @@
 package com.example.gaac.control;
 
 import com.example.gaac.model.BeanLogin;
+import com.example.gaac.model.BeanMateria;
+import com.example.gaac.model.BeanStudent;
 
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "Servletlogin",
 urlPatterns = {
@@ -35,6 +38,7 @@ public class Servletlogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option=request.getServletPath();
+        ServicesStudent servicesStudent= new ServicesStudent();
         switch (option){
             case "/loginDA":
                 String email = request.getParameter("email")!=null?
@@ -50,9 +54,10 @@ public class Servletlogin extends HttpServlet {
                 if(role==1){
                     if (login.getCorreo()!=null){
                         HttpSession session= request.getSession(true);
-                        session.setAttribute("name",login.getCorreo());
+                        BeanStudent student=servicesStudent.getStudent(login.getCorreo());
+                        session.setAttribute("email",login.getCorreo());
+                        session.setAttribute("idCarrera",student.getCarrera());
                         response.sendRedirect("AsesoriasE");
-                        //request.getRequestDispatcher("/WEB-INF/view/Asesorias.jsp").forward(request,response);
                     }else {
                         response.sendRedirect("login?message=error");
                     }
@@ -73,7 +78,7 @@ public class Servletlogin extends HttpServlet {
                 if(role==3){
                     if(login.getCorreo()!=null){
                         HttpSession session=request.getSession(true);
-                        session.setAttribute("name",login.getCorreo());
+                        session.setAttribute("email",login.getCorreo());
                         response.sendRedirect("list-cuatrimestre");
                     }else{
                         response.sendRedirect("AdminInicioSesion?message=error");

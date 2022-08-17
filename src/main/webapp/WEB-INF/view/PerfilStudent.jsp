@@ -12,9 +12,10 @@
 </head>
 <body>
    <jsp:include page="templates/import-navbarStudent.jsp"/>
+   <jsp:include page="templates/import-styles.jsp"/>
       <div class="lesscontainer">
         <div class="container-fluid scont">
-            <form action="update" method="post" style="margin: 3em 2em 2em 0;">
+            <form action="updateStudent" method="post" style="margin: 3em 2em 2em 0;">
                 <div class="row">
                     <div class="col">
                         <img src="/img/imagen.jpg" style="width:10em;" alt="">
@@ -25,13 +26,14 @@
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Nombre(s)</p>
                                 </div>
                             </div>
-                            <input type="text" class="col-10">
+                            <input type="text" class="col-10" value="${name}" name="name">
                         </div>
                         <div class="row" style="border: solid 1px;">
                             <div class="col" style="display: flex;">
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Matrícula</p>
                                 </div>
                             </div>
+                            <input type="text" class="col-10" disabled value="${matricula}">
                         </div>
                         <div class="row" style="border: solid 1px;">
                             <div class="col-2" style="display: flex;">
@@ -40,11 +42,11 @@
                             </div>
                             <div class="col-4">
                                 <select class="form-select" id="validationDefault03" name="carrera" required>
-                                    <option class="subtitles" hidden selected value=null>Selecciona una opción</option>
-                                    <option value="01">Desarrollo de software multiplataforma</option>
-                                    <option value="02">Diseño y moda industrial</option>
-                                    <option value="03">Diseño digital</option>
-                                    <option value="04">Infraestructura de redes</option>
+                                    <option class="subtitles" hidden selected value="${idCarrera}"><c:out value="${nameCarrera}"/></option>
+                                    <option value="dsm">Desarrollo de Software Multiplataforma</option>
+                                    <option value="dmi">Diseño y Moda Industrial</option>
+                                    <option value="dd">Diseño Digital</option>
+                                    <option value="ird">Infraestructura de Redes Digitales</option>
                                 </select>
                             </div>
                         </div>
@@ -53,13 +55,14 @@
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Correo</p>
                                 </div>
                             </div>
+                            <input class="col-10" type="text" disabled value="${email}">
                         </div>
                         <div class="row" style="border: solid 1px;">
                             <div class="col" style="display: flex;">
                                 <div style="margin: auto 0 auto 0"><p class="subtitles">Teléfono</p>
                                 </div>
                             </div>
-                            <input type="text" class="col-10">
+                            <input type="text" class="col-10" value="${telefono}" name="tel">
                         </div>
                         <div class="row" style="border: solid 1px;">
                             <div class="col-2" style="display: flex;">
@@ -68,7 +71,7 @@
                             </div>
                             <div class="col-4">
                                 <select class="form-select" id="validationDefault04" required name="sexo">
-                                    <option hidden selected class="subtitles" value=null>Selecciona una opción</option>
+                                    <option hidden selected class="subtitles" value="${sexo}"><c:out value="${sexo}"/></option>
                                     <option value="H">Hombre</option>
                                     <option value="M">Mujer</option>
                                     <option value="O">Otro</option>
@@ -79,6 +82,12 @@
                 </div>
                 <div class="row" style="margin:1em 0 0 0;">
                     <div class="col"></div>
+                    <c:if test="${param['message']=='error'}">
+                        <div class="alert alert-danger">
+                            Algo ha salido mal :c
+                            <p>vuelve a intentarlo más tarde</p>
+                        </div>
+                    </c:if>
                     <div class="col-10"><button class="btn" type="submit">Modificar Datos</button></div>
                 </div>
             </form>

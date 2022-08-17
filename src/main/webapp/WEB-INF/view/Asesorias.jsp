@@ -12,6 +12,7 @@
 </head>
 <body style="display:block;">
 <jsp:include page="templates/import-navbarStudent.jsp"/>
+<jsp:include page="templates/import-styles.jsp"/>
   <div class="lesscontainer">
     <div class="container-fluid scont">
       <fieldset class="row tfiltro">
@@ -53,6 +54,8 @@
       </table>   
       </div>
     </div>
+<a href="listMaterias"
+   class="btn btn-primary new "><i class="fa-solid fa-plus fa-2xl"></i></a>
   </div>
 
 

@@ -2,10 +2,14 @@
 package com.example.gaac.control;
 
 //import com.example.gaac.model.BeanStudent;
+import com.example.gaac.model.BeanMateria;
+import com.example.gaac.model.BeanStudent;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ServletHome",
 urlPatterns = {
@@ -34,6 +38,8 @@ public class ServletHome extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session= request.getSession();
         String option = request.getServletPath();
+        ServicesStudent servicesStudent= new ServicesStudent();
+        BeanStudent student= new BeanStudent();
         switch (option){
             case "/login":
                 request.getRequestDispatcher("WEB-INF/view/login.jsp").forward(request, response);
@@ -54,10 +60,19 @@ public class ServletHome extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/view/PerfilStudent.jsp").forward(request, response);
                 break;
             case "/PerfilDocente":
-
                 request.getRequestDispatcher("WEB-INF/view/PerfilDocente.jsp").forward(request,response);
                 break;
             case "/AsesoriasE":
+                student=servicesStudent.getStudent(String.valueOf(session.getAttribute("email")));
+                session.setAttribute("email",student.getEmail());
+                session.setAttribute("name",student.getName());
+                session.setAttribute("telefono",student.getTelefono());
+                session.setAttribute("sexo",String.valueOf(student.getSexo()));
+                session.setAttribute("matricula",student.getMatricula());
+                session.setAttribute("carrera",student.getCarrera());
+                String nameCarrera=servicesStudent.getNameCarrera(String.valueOf(session.getAttribute("carrera")));
+                student.setNameCarrera(nameCarrera);
+                session.setAttribute("nameCarrera",nameCarrera);
                 request.getRequestDispatcher("WEB-INF/view/Asesorias.jsp").forward(request,response);
             case "/AsesoriasD":
                 request.getRequestDispatcher("WEB-INF/view/AsesoriasD.jsp").forward(request, response);
@@ -73,6 +88,9 @@ public class ServletHome extends HttpServlet {
                 break;
             case "/RegistroEstudianteDos":
                 request.getRequestDispatcher("WEB-INF/view/EstudiantesConfirma.jsp").forward(request,response);
+                break;
+            case "/RegistroDocenteDos":
+                request.getRequestDispatcher("WEB-INF/view/DocenteConfirma.jsp").forward(request,response);
                 break;
             case "/Succesfully":
                 request.getRequestDispatcher("WEB-INF/view/RegistroExitoso.jsp").forward(request,response);

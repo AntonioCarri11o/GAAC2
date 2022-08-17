@@ -95,7 +95,7 @@
             </div>
             <c:if test="${param['message']=='error'}">
               <div class="alert alert-danger">
-                Error Usuario ya registrado
+                Error correo ya registrado
               </div>
             </c:if>
             <div class="mb-3 row">
