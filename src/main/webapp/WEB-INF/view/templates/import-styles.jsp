@@ -285,15 +285,6 @@
         margin: auto 0 0 0;
     }
 
-#all:checked ~ #tablas #dos,#all:checked ~ #tablas #tres{
-    display: none;
-}
-#act:checked ~ #tablas #uno, #act:checked ~ #tablas #tres{
-    display: none;
-}
-#ina:checked ~ #tablas #uno, #ina:checked ~ #tablas #dos{
-    display: none;
-}
 .new{
     width: 3em;
     height: 3em;
@@ -325,7 +316,17 @@
 #dos{
     display: none;
 }
-#tres{
-    display: none;
-}
+    #tres{
+        display: none;
+    }
+    #cuatro{
+        display: none;
+    }
+    #cinco{
+        display: none;
+    }
+    #seis{
+        display: none;
+    }
+
 </style>

@@ -14,7 +14,6 @@
 <body style="display: block;">
 <jsp:include page="templates/import-styles.jsp"/>
 <jsp:include page="templates/import-navbarAdmin.jsp"/>
-
 <script>
   function showAll() {
     var x = document.getElementById("uno");
@@ -59,16 +58,6 @@
       </div>
       <div id="tablas" class="row">
         <div id="uno">
-          <!--
-          <table>
-            <c:forEach items="${list}" var="student">
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </c:forEach>
-          </table>-->
           <c:forEach items="${list}" var="student">
             <div class="row">
               <div class="col"><c:out value="${student.matricula}"/></div>

@@ -4,6 +4,26 @@ import com.example.gaac.model.*;
 import java.util.List;
 
 public class ServicesStudent {
+    public boolean newMotivo(int id, String motivo){
+        DaoStudent daoStudent= new DaoStudent();
+        boolean result=daoStudent.newMotivo(id,motivo);
+        return result;
+    }
+    public boolean updateStatusAdv(int id, String estado){
+        DaoStudent daoStudent= new DaoStudent();
+        boolean result= daoStudent.updateStatusAdv(id,estado);
+        return result;
+    }
+    public String motivo(int id){
+        DaoStudent daoStudent= new DaoStudent();
+        String motivo=daoStudent.consultaMotivo(id);
+        return motivo;
+    }
+    public int valida(String correo){
+        DaoStudent daoStudent= new DaoStudent();
+        int result = daoStudent.valida(correo);
+        return result;
+    }
     public List<BeanStudent> listStudents(){
         DaoStudent daoStudent= new DaoStudent();
         List<BeanStudent> listStudents= daoStudent.listStudents();

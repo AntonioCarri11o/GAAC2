@@ -20,7 +20,9 @@ urlPatterns = {
         "/save-materia",//get
         "/status-materia",//get
         "/perfilDocenteUpdate",//post
-        "/comfirm-docente"//post
+        "/comfirm-docente",//post
+        "/aceptAdvisory",//post
+        "/comfirmReject"//post
 }
 )
 public class ServletDocente extends HttpServlet {
@@ -28,12 +30,18 @@ public class ServletDocente extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option = request.getServletPath();
         ServiceDocente serviceDocente = new ServiceDocente();
+        ServicesStudent servicesStudent= new ServicesStudent();
         HttpSession session = request.getSession();
         String correo= String.valueOf(session.getAttribute("email"));
         String name=String.valueOf(session.getAttribute("name"));
         String ap1= String.valueOf(session.getAttribute("ap1"));
         String ap2=String.valueOf(session.getAttribute("ap2"));
         switch (option){
+            case "/aceptAdvisory":
+                int idSesion=Integer.parseInt(request.getParameter("id"));
+                boolean result1=servicesStudent.updateStatusAdv(idSesion,"pendiente");
+                response.sendRedirect("AsesoriasD");
+                break;
             case "/listMateriasD":
                 List<BeanMateria> listMateriasD = serviceDocente.listMateriasD(correo);
                 System.out.println(correo);
@@ -98,10 +106,16 @@ public class ServletDocente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServiceDocente serviceDocente= new ServiceDocente();
+        ServicesStudent servicesStudent= new ServicesStudent();
         String option = request.getServletPath();
         HttpSession session = request.getSession();
         boolean result;
         switch (option){
+            case "/comfirmReject":
+                int id=Integer.parseInt(request.getParameter("id"));
+                result=servicesStudent.updateStatusAdv(id,"rechazada");
+                response.sendRedirect("AsesoriasD");
+                break;
             case "/newDocente":
                 BeanDocente docente= new BeanDocente();
                 String name = request.getParameter("name")!=null?request.getParameter("name"):"";
@@ -173,6 +187,7 @@ public class ServletDocente extends HttpServlet {
             default:
                 response.sendRedirect("index");
                 break;
+
         }
     }
 }

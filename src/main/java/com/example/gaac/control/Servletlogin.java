@@ -55,6 +55,7 @@ public class Servletlogin extends HttpServlet {
                     if (login.getCorreo()!=null){
                         HttpSession session= request.getSession(true);
                         BeanStudent student=servicesStudent.getStudent(login.getCorreo());
+                        session.setAttribute("role",role);
                         session.setAttribute("email",login.getCorreo());
                         session.setAttribute("idCarrera",student.getCarrera());
                         response.sendRedirect("AsesoriasE");
@@ -65,6 +66,7 @@ public class Servletlogin extends HttpServlet {
                 if (role==2){
                     if(login.getCorreo()!=null){
                         HttpSession session=request.getSession(true);
+                        session.setAttribute("role",role);
                         session.setAttribute("email",login.getCorreo());
                         session.setAttribute("name",login.getName());
                         session.setAttribute("ap1",login.getAp1());

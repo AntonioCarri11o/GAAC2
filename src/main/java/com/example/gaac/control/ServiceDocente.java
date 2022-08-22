@@ -1,14 +1,16 @@
 package com.example.gaac.control;
 
-import com.example.gaac.model.BeanDocente;
-import com.example.gaac.model.BeanMateria;
-import com.example.gaac.model.DaoDocente;
-import com.example.gaac.model.DaoStudent;
+import com.example.gaac.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDocente {
+    public List<BeanSesion> listSesions(String correo){
+        DaoDocente daoDocente= new DaoDocente();
+        List<BeanSesion> listSesions=daoDocente.listSesions(correo);
+        return listSesions;
+    }
     public boolean newDocente(BeanDocente docente){
         DaoDocente daoDocente= new DaoDocente();
         boolean result=daoDocente.saveDocente(docente);

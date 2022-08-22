@@ -8,6 +8,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoDocente {
+
+
+    public List<BeanSesion> listSesions(String correo){
+        List<BeanSesion> listSesions= new ArrayList<>();
+        try(Connection connection= MySQLConnection.getConnection();
+        PreparedStatement pstm=connection.prepareStatement(
+                "select correo_Estudiante,NombreCompleto,Correo_Docente,sesion_asesoria.id,\n" +
+                        "sesion_asesoria.estado,materia.id,materia.nombre,Fecha from sesion_asesoria\n" +
+                        "inner join estudiante on Correo_Estudiante=estudiante.Correo\n" +
+                        "inner join materia on id_materia=materia.id where Correo_Docente=?;"
+        )
+        ){
+            pstm.setString(1,correo);
+            ResultSet rs=pstm.executeQuery();
+            while(rs.next()){
+                BeanSesion sesion = new BeanSesion();
+                sesion.setEmailStudent(rs.getString("correo_Estudiante"));
+                sesion.setNameStudent(rs.getString("NombreCompleto"));
+                sesion.setEmailTechaer(rs.getString("Correo_Docente"));
+                sesion.setId(Integer.parseInt(rs.getString("sesion_asesoria.id")));
+                sesion.setEstado(rs.getString("sesion_asesoria.estado"));
+                sesion.setIdMateria(rs.getString("materia.id"));
+                sesion.setNameMateria(rs.getString("materia.nombre"));
+                sesion.setDate(rs.getString("Fecha"));
+                listSesions.add(sesion);
+            }
+            rs.close();
+            pstm.close();
+            connection.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  listSesions;
+    }
     public List<BeanDocente> listDocenteMateria(String materia){
         List<BeanDocente>listDocenteMateria= new ArrayList<>();
         try(Connection connection= MySQLConnection.getConnection();

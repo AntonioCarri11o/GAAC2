@@ -24,7 +24,8 @@ import java.util.List;
                 "/status-student",//get
                 "/listMaterias",//get
                 "/newAdvisory",//get
-                "/saveAdvisory",///get
+                "/saveAdvisory",//get
+                "/comfirmCancel",//post
                 "/comfirm-student"//post
 
         }
@@ -47,9 +48,16 @@ public class ServletStudent extends HttpServlet {
                 break;
 
             case "/listMaterias":
-                List<BeanMateria> listMaterias = servicesStudent.listMaterias(String.valueOf(session.getAttribute("idCarrera")));
-                request.setAttribute("listM",listMaterias);
-                request.getRequestDispatcher("WEB-INF/view/SolicitarAsesoria.jsp").forward(request,response);
+                int valida= servicesStudent.valida(String.valueOf(session.getAttribute("email")));
+                if(valida<3){
+                    List<BeanMateria> listMaterias = servicesStudent.listMaterias(String.valueOf(session.getAttribute("idCarrera")));
+                    request.setAttribute("listM",listMaterias);
+                    request.getRequestDispatcher("WEB-INF/view/SolicitarAsesoria.jsp").forward(request,response);
+                }else {
+                    response.sendRedirect("AsesoriasE?message=toManyAdv");
+                }
+
+
                 break;
             case "/list-student":
                 System.out.println("Entró a liststudent");
@@ -109,9 +117,28 @@ public class ServletStudent extends HttpServlet {
         ServicesStudent servicesStudent = new ServicesStudent();
         BeanStudent student= new BeanStudent();
         HttpSession session=request.getSession();
+        boolean result;
         switch (option){
+            case "/comfirmCancel":
+                int role= Integer.parseInt(String.valueOf(session.getAttribute("role")));
+                String idString=String.valueOf(request.getParameter("id"));
+                int id=Integer.parseInt(idString);
+                String motivo="";
+                if(role==1){
+                    motivo= "Estudiante: "+request.getParameter("motivo");
+                }
+                if(role==2){
+                    motivo="Docente: "+request.getParameter("motivo");
+                }
+                request.setAttribute("id",id);
+                result= servicesStudent.updateStatusAdv(id,"cancelada");
+                boolean res;
+                if(result==true){
+                    res=servicesStudent.newMotivo(id,motivo);
+                }
+                response.sendRedirect("AsesoriasE");
+                break;
             case "/save-student":
-                boolean result;
                 String name=request.getParameter("name")!=null?request.getParameter("name"):"";
                 String correo= request.getParameter("email")!=null?request.getParameter("email"):"";
                 String password = request.getParameter("password")!=null?request.getParameter("password"):"";

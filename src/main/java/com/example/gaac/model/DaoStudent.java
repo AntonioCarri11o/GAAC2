@@ -11,6 +11,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoStudent {
+    public boolean newMotivo(int id, String motivo){
+        boolean result=false;
+        try(Connection connection=MySQLConnection.getConnection();
+            PreparedStatement pstm =connection.prepareStatement(
+                    "insert into motivo (motivo,id_sesion) values (?,?);"
+            )
+        ){
+            pstm.setString(1,motivo);
+            pstm.setInt(2,id);
+            result=pstm.executeUpdate()==1;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public boolean updateStatusAdv(int id, String estado){
+        boolean result=false;
+        try(Connection connection=MySQLConnection.getConnection();
+        PreparedStatement pstm =connection.prepareStatement(
+                "update sesion_asesoria set estado=? where id=?;"
+        )
+        ){
+            pstm.setString(1,estado);
+            pstm.setInt(2,id);
+            result=pstm.executeUpdate()==1;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String consultaMotivo(int id){
+        String motivo="";
+        try(Connection connection =MySQLConnection.getConnection();
+            PreparedStatement pstm=connection.prepareStatement(
+                    "select * from motivo where id_sesion=?;"
+            )
+        ){
+            pstm.setInt(1,id);
+            ResultSet rs=pstm.executeQuery();
+            while (rs.next()){
+                motivo=rs.getString("motivo");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return motivo;
+    }
+    public int valida(String correo){
+        int result=0;
+        try(Connection connection= MySQLConnection.getConnection();
+        PreparedStatement pstm= connection.prepareStatement(
+                "select count(id) from sesion_asesoria where Correo_Estudiante=? and (Estado='solicitada' or Estado='pendiente');"
+        )
+        ){
+            pstm.setString(1,correo);
+            ResultSet rs=pstm.executeQuery();
+            while (rs.next()){
+                result=rs.getInt("count(id)");
+            }
+            rs.close();
+            pstm.close();
+            connection.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        return result;
+    }
     public List<BeanSesion>listSesions(String correo){
         List<BeanSesion>listSessions= new ArrayList<>();
         try(Connection connection=MySQLConnection.getConnection();
