@@ -39,7 +39,7 @@ public class ServletDocente extends HttpServlet {
         switch (option){
             case "/aceptAdvisory":
                 int idSesion=Integer.parseInt(request.getParameter("id"));
-                boolean result1=servicesStudent.updateStatusAdv(idSesion,"pendiente");
+                boolean result1=servicesStudent.updateStatusAdv(idSesion,"pendiente","","","");
                 response.sendRedirect("AsesoriasD");
                 break;
             case "/listMateriasD":
@@ -113,7 +113,9 @@ public class ServletDocente extends HttpServlet {
         switch (option){
             case "/comfirmReject":
                 int id=Integer.parseInt(request.getParameter("id"));
-                result=servicesStudent.updateStatusAdv(id,"rechazada");
+                String motivo ="Docente: "+ request.getParameter("motivo");
+                result=servicesStudent.newMotivo(id,motivo);
+                result=servicesStudent.updateStatusAdv(id,"rechazada","","","");
                 response.sendRedirect("AsesoriasD");
                 break;
             case "/newDocente":

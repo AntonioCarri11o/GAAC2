@@ -167,7 +167,7 @@
           <div class="col"><c:out value="${sesionC.emailStudent}"/></div>
           <div class="col row">
             <div class="col"><button type="button" disabled class="btn btnmod" style="width:100%;color:white;background-color: red; border: solid 1px darkred">Cancelada</button></div>
-            <div class="col"><a href="motivo?id=${sesionC.id}&estado=${sesionC.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
+            <div class="col"><a href="motivo?id=${sesionC.id}&estado=${sesion.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
           </div>
 
         </div>
@@ -210,7 +210,7 @@
           <div class="col"><c:out value="${sesionR.emailStudent}"/></div>
           <div class="col row">
             <div class="col"><button type="button" disabled class="btn btnmod" style="width:100%;color:white;background-color: red; border: solid 1px darkred">Rechazada</button></div>
-            <div class="col"><a href="motivo?id=${sesionR.id}&estado=${sesionR.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
+            <div class="col"><a href="motivo?id=${sesionR.id}&estado=${sesion.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
           </div>
         </div>
       </c:forEach>
@@ -223,9 +223,12 @@
           <div class="col"><c:out value="${sesionS.nameStudent}"/></div>
           <div class="col"><c:out value="${sesionS.emailStudent}"/></div>
           <div class="col">
-            <a href="cancelAdvisory?id=${sesionS.id}" class="btn btnmod" style="width:100%;background-color:darkred;border: solid 1px red">
-              Cancelar
-            </a>
+            <div class="col">
+              <a href="aceptAdvisory?id=${sesionS.id}" class="btn" style="width:100%;background-color:#075948;border: solid 1px #009475">Aceptar</a>
+            </div>
+            <div class="col">
+              <a href="rejectAdvisory?id=${sesionS.id}" class="btn" style="width:100%;background-color:darkred;border: solid 1px red">Rechazar</a>
+            </div>
           </div>
         </div>
       </c:forEach>

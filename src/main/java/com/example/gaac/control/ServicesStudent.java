@@ -1,5 +1,6 @@
 package com.example.gaac.control;
 import com.example.gaac.model.*;
+import com.example.gaac.model.Utils.DaoCuatrimestre;
 
 import java.util.List;
 
@@ -9,9 +10,20 @@ public class ServicesStudent {
         boolean result=daoStudent.newMotivo(id,motivo);
         return result;
     }
-    public boolean updateStatusAdv(int id, String estado){
+    public boolean updateStatusAdv(int id, String estado, String correo, String sexo, String id_cuatrimestre){
         DaoStudent daoStudent= new DaoStudent();
+        DaoCuatrimestre daoCuatrimestre= new DaoCuatrimestre();
+        boolean found;
+        boolean contador;
         boolean result= daoStudent.updateStatusAdv(id,estado);
+        if(result!=false){
+            if(estado.equals("impartida")){
+                found=daoStudent.found(correo);
+                contador= daoCuatrimestre.contador(sexo,id_cuatrimestre, found);
+
+            }
+        }
+
         return result;
     }
     public String motivo(int id){
@@ -64,9 +76,9 @@ public class ServicesStudent {
         List<BeanMateria> listMaterias=daoStudent.listMaterias(carrera);
         return listMaterias;
     }
-    public  boolean saveAdvisory(String emailTeacher, String emailStudent, String materia){
+    public  boolean saveAdvisory(String emailTeacher, String emailStudent, String materia, String idCuatrimestre){
         DaoStudent daoStudent = new DaoStudent();
-        boolean result= daoStudent.saveAdvisory(emailTeacher, emailStudent,materia);
+        boolean result= daoStudent.saveAdvisory(emailTeacher, emailStudent,materia,idCuatrimestre);
         return result;
     }
     public List<BeanSesion>listSesions(String correo){

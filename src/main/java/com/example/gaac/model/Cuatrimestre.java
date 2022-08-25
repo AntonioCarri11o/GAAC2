@@ -7,6 +7,9 @@ public class Cuatrimestre {
     private int mujeres;
     private int hombres;
     private int otros;
+    private  int tHombres;
+    private  int tMujeres;
+    private  int tOtros;
     private int year;
 
     public String getIdC() {
@@ -61,6 +64,30 @@ public class Cuatrimestre {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int gettHombres() {
+        return tHombres;
+    }
+
+    public void settHombres(int tHombres) {
+        this.tHombres = tHombres;
+    }
+
+    public int gettMujeres() {
+        return tMujeres;
+    }
+
+    public void settMujeres(int tMujeres) {
+        this.tMujeres = tMujeres;
+    }
+
+    public int gettOtros() {
+        return tOtros;
+    }
+
+    public void settOtros(int tOtros) {
+        this.tOtros = tOtros;
     }
 
     public Cuatrimestre(){

@@ -28,7 +28,6 @@
                             <c:out value="${cuatrimestre.periodo}"/>
                             <c:out value="${cuatrimestre.year}"/>
                         </div>
-
                         <p class="subtitles">Mujeres Atendidas: <c:out value="${cuatrimestre.mujeres}"/></p>
                         <p class="subtitles">Hombres Atendidos: <c:out value="${cuatrimestre.hombres}"/></p>
                         <p class="subtitles">Otros Atendidos: <c:out value="${cuatrimestre.otros}"/></p>

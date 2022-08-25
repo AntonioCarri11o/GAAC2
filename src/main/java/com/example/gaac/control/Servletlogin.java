@@ -58,6 +58,8 @@ public class Servletlogin extends HttpServlet {
                         session.setAttribute("role",role);
                         session.setAttribute("email",login.getCorreo());
                         session.setAttribute("idCarrera",student.getCarrera());
+                        session.setAttribute("idCuatrimestre",serviceLogin.getIDCuatrimestreActivo());
+                        session.setAttribute("sexo",login.getSexo());
                         response.sendRedirect("AsesoriasE");
                     }else {
                         response.sendRedirect("login?message=error");
@@ -72,6 +74,7 @@ public class Servletlogin extends HttpServlet {
                         session.setAttribute("ap1",login.getAp1());
                         session.setAttribute("ap2",login.getAp2());
                         response.sendRedirect("AsesoriasD");
+                        session.setAttribute("idCuatrimestre",serviceLogin.getIDCuatrimestreActivo());
                         //request.getRequestDispatcher("/WEB-INF/view/AsesoriasD.jsp").forward(request,response);
                     }else{
                         response.sendRedirect("login?message=error");

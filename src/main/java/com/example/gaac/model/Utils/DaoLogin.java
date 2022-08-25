@@ -5,6 +5,7 @@ import com.example.gaac.model.BeanLogin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class DaoLogin {
     public BeanLogin login(String correo, String pass, int role) {
@@ -66,7 +67,22 @@ public class DaoLogin {
                 e.printStackTrace();
             }
         }
-
         return beanlogin;
+    }
+    public String getIDCuatrimestreActivo(){
+        String id_cuatrimestre="error";
+        try{
+            Connection connection= MySQLConnection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs=statement.executeQuery(
+                    "select ID from cuatrimestre where estado='Activo';"
+            );
+            while (rs.next()){
+                id_cuatrimestre=rs.getString("ID");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  id_cuatrimestre;
     }
 }

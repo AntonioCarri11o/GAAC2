@@ -26,7 +26,8 @@ import java.util.List;
                 "/newAdvisory",//get
                 "/saveAdvisory",//get
                 "/comfirmCancel",//post
-                "/comfirm-student"//post
+                "/comfirm-student",//post
+                "/impAdvisory"//post
 
         }
 
@@ -104,7 +105,14 @@ public class ServletStudent extends HttpServlet {
                 String idMateria=request.getParameter("materia");
                 String docenteCorreo=request.getParameter("correo")!=null?request.getParameter("correo"):"";
                 String correo=String.valueOf(session.getAttribute("email"));
-                boolean result=servicesStudent.saveAdvisory(docenteCorreo, correo,idMateria);
+                String idCuatrimestre=String.valueOf(session.getAttribute("idCuatrimestre"));
+                boolean result=servicesStudent.saveAdvisory(docenteCorreo, correo,idMateria,idCuatrimestre );
+                response.sendRedirect("AsesoriasE");
+                break;
+            case "/impAdvisory":
+                int ida=Integer.parseInt(request.getParameter("id"));
+                System.out.println("Está haciendo algo");
+                boolean service =servicesStudent.updateStatusAdv(ida,"impartida",String.valueOf(session.getAttribute("email")),String.valueOf(session.getAttribute("sexo")),String.valueOf(session.getAttribute("idCuatrimestre")));
                 response.sendRedirect("AsesoriasE");
                 break;
         }
@@ -119,6 +127,7 @@ public class ServletStudent extends HttpServlet {
         HttpSession session=request.getSession();
         boolean result;
         switch (option){
+
             case "/comfirmCancel":
                 int role= Integer.parseInt(String.valueOf(session.getAttribute("role")));
                 String idString=String.valueOf(request.getParameter("id"));
@@ -131,7 +140,7 @@ public class ServletStudent extends HttpServlet {
                     motivo="Docente: "+request.getParameter("motivo");
                 }
                 request.setAttribute("id",id);
-                result= servicesStudent.updateStatusAdv(id,"cancelada");
+                result= servicesStudent.updateStatusAdv(id,"cancelada",String.valueOf(session.getAttribute("email")),"",String.valueOf(session.getAttribute("idCuatrimestre")));
                 boolean res;
                 if(result==true){
                     res=servicesStudent.newMotivo(id,motivo);

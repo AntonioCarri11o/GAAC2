@@ -28,6 +28,7 @@ public class ServletCuatrimestre extends HttpServlet {
                     String periodo=request.getParameter("periodo");
                     String yeartoString=request.getParameter("year");
                     int year = Integer.parseInt(yeartoString);
+                    cuatrimestre.setIdC(periodo+year);
                     cuatrimestre.setPeriodo(periodo);
                     cuatrimestre.setYear(year);
                     boolean result=serviceCuatrimestre.newCuatrimestre(cuatrimestre);

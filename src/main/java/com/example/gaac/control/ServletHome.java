@@ -58,6 +58,8 @@ public class ServletHome extends HttpServlet {
         int id;
         switch (option){
             case "/rejectAdvisory":
+                id=Integer.parseInt(request.getParameter("id"));
+                request.setAttribute("id",id);
                 request.getRequestDispatcher("WEB-INF/view/RechazarAsesoria.jsp").forward(request,response);
                 break;
             case "/motivo":
@@ -67,6 +69,7 @@ public class ServletHome extends HttpServlet {
                 String motivo=servicesStudent.motivo(id);
                 System.out.println(motivo);
                 request.setAttribute("motivo",motivo);
+                request.setAttribute("id",id);
                 request.setAttribute("estado",estado);
                 request.getRequestDispatcher("WEB-INF/view/ConsultarAsesoria.jsp").forward(request,response);
                 break;

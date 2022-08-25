@@ -133,8 +133,9 @@
                             <button type="button" disabled class="btn btnmod" style="width:100%;color:white;background-color: #0F54A0; border: solid 1px #011A42">Impartida</button>
                         </c:if>
                         <c:if test="${sesion.estado=='pendiente'}">
-                            <a href="cancelAdvisory?id=${sesion.id}" class="btn btnmod" style="width:100%;background-color:darkred;border: solid 1px red">
-                                Cancelar
+                            <a href="cancelAdvisory?id=${sesion.id}" class="btn btnmod" style="width:50%;background-color:darkred;border: solid 1px red">Cancelar</a>
+                            <a href="impAdvisory?id=${sesion.id}"class="btn btnmod" style="width:50%;background-color:#033062;">
+                                Marcar como impartida
                             </a>
                         </c:if>
                         <c:if test="${sesion.estado=='rechazada'}">
@@ -161,7 +162,7 @@
                     <div class="col"><c:out value="${sesionC.nameTeacher}"/></div>
                     <div class="col row">
                         <div class="col"><button type="button" disabled class="btn btnmod" style="width:100%;color:white;background-color: red; border: solid 1px darkred">Cancelada</button></div>
-                        <div class="col"><a href="motivo?id=${sesionC.id}&estado=${sesionC.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
+                        <div class="col"><a href="motivo?id=${sesionC.id}&estado=${sesion.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
                     </div>
 
                 </div>
@@ -186,8 +187,11 @@
                     <div class="col"><c:out value="${sesionP.nameMateria}"/></div>
                     <div class="col"><c:out value="${sesionP.nameTeacher}"/></div>
                     <div class="col">
-                        <a href="cancelAdvisory?id=${sesionP.id}" class="btn btnmod" style="width:100%;background-color:darkred;border: solid 1px red">
-                            Cancelar
+                        <a href="cancelAdvisory?id=${sesionP.id}" class="btn btnmod" style="width:100%;background-color:darkred;border: solid 1px red">Cancelar</a>
+                    </div>
+                    <div class="col">
+                        <a href="impAdvisory?id=${sesionP.id}"class="btn btnmod" style="width:100%;background-color:#033062;">
+                            Marcar como impartida
                         </a>
                     </div>
                 </div>
@@ -201,7 +205,7 @@
                     <div class="col"><c:out value="${sesionR.nameTeacher}"/></div>
                     <div class="col row">
                         <div class="col"><button type="button" disabled class="btn btnmod" style="width:100%;color:white;background-color: red; border: solid 1px darkred">Rechazada</button></div>
-                        <div class="col"><a href="motivo?id=${sesionR.id}&estado=${sesionR.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
+                        <div class="col"><a href="motivo?id=${sesionR.id}&estado=${sesion.estado}" class="btn"><i class="fa-regular fa-circle-question fa-2xl"></i></a></div>
                     </div>
                 </div>
             </c:forEach>

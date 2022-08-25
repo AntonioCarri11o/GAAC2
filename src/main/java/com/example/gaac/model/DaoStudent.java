@@ -11,6 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoStudent {
+    public boolean found(String correo){
+        boolean found=false;
+        try(Connection connection= MySQLConnection.getConnection();
+            PreparedStatement pstm= connection.prepareStatement(
+                    "select Correo_Estudiante from sesion_asesoria where Correo_Estudiante=?; "
+            )
+
+        ){
+            pstm.setString(1,correo);
+            ResultSet rs=pstm.executeQuery();
+            while (rs.next()){
+                if(correo.equals(rs.getString("Correo_Estudiante"))){
+                    found = true;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return found;
+    }
     public boolean newMotivo(int id, String motivo){
         boolean result=false;
         try(Connection connection=MySQLConnection.getConnection();
@@ -117,16 +137,17 @@ public class DaoStudent {
         }
         return listSessions;
     }
-    public boolean saveAdvisory(String emailTeacher, String emailStudent, String materia){
+    public boolean saveAdvisory(String emailTeacher, String emailStudent, String materia, String idCuatrimestre){
         boolean result=false;
         try(Connection connection= MySQLConnection.getConnection();
             PreparedStatement pstm= connection.prepareStatement(
-                    "insert into sesion_asesoria (Correo_Docente,Correo_Estudiante,Id_materia) values (?,?,?);"
+                    "insert into sesion_asesoria (Correo_Docente,Correo_Estudiante,Id_materia,ID_cuatrimestre) values (?,?,?,?);"
             )
         ){
             pstm.setString(1,emailTeacher);
             pstm.setString(2,emailStudent);
             pstm.setString(3,materia);
+            pstm.setString(4,idCuatrimestre);
             result=pstm.executeUpdate()==1;
         }catch (Exception e){
             e.printStackTrace();
@@ -164,7 +185,7 @@ public class DaoStudent {
             Connection connection = MySQLConnection.getConnection();
             Statement statement= connection.createStatement();
             ResultSet rs=statement.executeQuery
-                    ("select Correo,Matricula,NombreCompleto,Telefono,Sexo,ID_carrera,ID_cuatrimestre,estado from estudiante");
+                    ("select Correo,Matricula,NombreCompleto,Telefono,Sexo,ID_carrera,estado from estudiante");
             while (rs.next()){
                 BeanStudent student = new BeanStudent();
                 student.setEmail(rs.getString("Correo"));
@@ -173,7 +194,6 @@ public class DaoStudent {
                 student.setTelefono(rs.getString("Telefono"));
                 student.setSexo(rs.getString("Sexo").charAt(0));
                 student.setCarrera(rs.getString("ID_carrera"));
-                student.setCuatrimestre(rs.getString("ID_cuatrimestre"));
                 student.setEstado(rs.getString("estado"));
                 listStudents.add(student);
             }
@@ -257,7 +277,6 @@ public class DaoStudent {
                 student.setTelefono(rs.getString("Telefono"));
                 student.setSexo(rs.getString("Sexo").charAt(0));
                 student.setCarrera(rs.getString("ID_carrera"));
-                student.setCuatrimestre(rs.getString("ID_cuatrimestre"));
                 student.setEstado(rs.getString("estado"));
             }
         }catch(Exception e){
