@@ -121,9 +121,9 @@ public class DaoCuatrimestre {
         boolean result=false;
         try(
                 Connection connection=MySQLConnection.getConnection();
-                PreparedStatement pstm = connection.prepareStatement("insert into cuatrimestre (ID,Periodo, yeear) values (?,?);");
+                PreparedStatement pstm = connection.prepareStatement("insert into cuatrimestre (ID,Periodo, yeear) values (?,?,?);");
                 ){
-            pstm.setString(3,cuatrimestre.getIdC());
+            pstm.setString(1,cuatrimestre.getIdC());
             pstm.setString(2,cuatrimestre.getPeriodo());
             pstm.setInt(3,cuatrimestre.getYear());
             result=pstm.executeUpdate()==1;
